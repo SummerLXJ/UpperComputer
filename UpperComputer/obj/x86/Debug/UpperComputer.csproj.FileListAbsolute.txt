@@ -1,0 +1,44 @@
+F:\Visio Projects\UpperComputer\UpperComputer\bin\Debug\UpperComputer.exe
+F:\Visio Projects\UpperComputer\UpperComputer\bin\Debug\UpperComputer.pdb
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.StartForm.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Properties.Resources.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.csproj.GenerateResource.Cache
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.exe
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.pdb
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Main_Form.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Order_Set.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RF_set.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Channel.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG1.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG2.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG3.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG4.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC1.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC2.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form1.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form2.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.MainForm.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.OnOffBtn.resources
+F:\Visio Projects\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.exe
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.pdb
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form1.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form2.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.MainForm.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Main_Form.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Order_Set.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RF_set.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.StartForm.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Properties.Resources.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.OnOffBtn.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Channel.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG1.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG2.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG3.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG4.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC1.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC2.resources
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\bin\Debug\UpperComputer.exe
+C:\Users\admin\Documents\C#\UpperComputer\UpperComputer\bin\Debug\UpperComputer.pdb
