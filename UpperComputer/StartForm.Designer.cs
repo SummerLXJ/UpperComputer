@@ -47,10 +47,12 @@
             this.btnC1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnC1.Location = new System.Drawing.Point(36, 15);
+            this.btnC1.Location = new System.Drawing.Point(54, 22);
+            this.btnC1.Margin = new System.Windows.Forms.Padding(4);
             this.btnC1.Name = "btnC1";
-            this.btnC1.Size = new System.Drawing.Size(85, 50);
+            this.btnC1.Size = new System.Drawing.Size(128, 75);
             this.btnC1.TabIndex = 0;
+            this.btnC1.TabStop = false;
             this.btnC1.Text = "通道1";
             this.btnC1.UseVisualStyleBackColor = true;
             this.btnC1.Click += new System.EventHandler(this.btnC1_Click);
@@ -60,10 +62,12 @@
             this.btnC2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnC2.Location = new System.Drawing.Point(144, 15);
+            this.btnC2.Location = new System.Drawing.Point(216, 22);
+            this.btnC2.Margin = new System.Windows.Forms.Padding(4);
             this.btnC2.Name = "btnC2";
-            this.btnC2.Size = new System.Drawing.Size(87, 50);
+            this.btnC2.Size = new System.Drawing.Size(130, 75);
             this.btnC2.TabIndex = 1;
+            this.btnC2.TabStop = false;
             this.btnC2.Text = "通道2";
             this.btnC2.UseVisualStyleBackColor = true;
             this.btnC2.Click += new System.EventHandler(this.btnC2_Click);
@@ -72,9 +76,11 @@
             // 
             this.groupBox1.Controls.Add(this.btnC2);
             this.groupBox1.Controls.Add(this.btnC1);
-            this.groupBox1.Location = new System.Drawing.Point(19, 18);
+            this.groupBox1.Location = new System.Drawing.Point(28, 27);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(268, 86);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(402, 129);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "物理通道";
@@ -84,10 +90,12 @@
             this.btnConnectWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConnectWeb.Location = new System.Drawing.Point(24, 20);
+            this.btnConnectWeb.Location = new System.Drawing.Point(36, 30);
+            this.btnConnectWeb.Margin = new System.Windows.Forms.Padding(4);
             this.btnConnectWeb.Name = "btnConnectWeb";
-            this.btnConnectWeb.Size = new System.Drawing.Size(75, 23);
+            this.btnConnectWeb.Size = new System.Drawing.Size(112, 34);
             this.btnConnectWeb.TabIndex = 3;
+            this.btnConnectWeb.TabStop = false;
             this.btnConnectWeb.Text = "连接网络";
             this.btnConnectWeb.UseVisualStyleBackColor = true;
             this.btnConnectWeb.Click += new System.EventHandler(this.btnConnectWeb_Click);
@@ -98,9 +106,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 64);
+            this.label1.Location = new System.Drawing.Point(64, 96);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(98, 18);
             this.label1.TabIndex = 5;
             this.label1.Text = "网络未连接";
             // 
@@ -109,9 +118,11 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.btnConnectWeb);
-            this.groupBox2.Location = new System.Drawing.Point(19, 141);
+            this.groupBox2.Location = new System.Drawing.Point(28, 212);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(129, 93);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(194, 140);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             // 
@@ -121,9 +132,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
-            this.pictureBox1.Location = new System.Drawing.Point(20, 61);
+            this.pictureBox1.Location = new System.Drawing.Point(30, 92);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 17);
+            this.pictureBox1.Size = new System.Drawing.Size(26, 26);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
@@ -131,20 +143,23 @@
             // 
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(18, 18);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 253);
+            this.panel1.Size = new System.Drawing.Size(442, 380);
             this.panel1.TabIndex = 7;
             // 
             // StartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 282);
+            this.ClientSize = new System.Drawing.Size(474, 423);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StartForm";
             this.Text = "上位机";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.StartForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

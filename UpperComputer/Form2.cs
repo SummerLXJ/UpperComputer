@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace UpperComputer
 {
-    public partial class Form2 : UpperComputer.Main_Form
+    public partial class Form2 : UpperComputer.MainForm
     {
         public Form2()
         {

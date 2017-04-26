@@ -14,19 +14,20 @@ using System.Timers;
 using System.Collections;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace UpperComputer
 {
     public partial class StartForm : Form
     {
-
-        public Form1 form1 = new Form1();
-        public Form2 form2 = new Form2();
+        Form1 form1 = new Form1();
+        Form2 form2 = new Form2();
         public StartForm()
         {
             InitializeComponent();
         }
-        Method method = new Method();
+        //Method method = new Method();
+
         #region 连接网络
         private delegate void webStateDelegate(bool connectState); //委托以控制主线程控件
         private void btnConnectWeb_Click(object sender, EventArgs e)
@@ -40,13 +41,12 @@ namespace UpperComputer
         {
             bool connectState = false;
             byte[] webTest = null;
-            UDP udp = new UDP(); 
             //初始化一个UDPClient并和本地接收端口绑定
-            //UdpClient clientRece = new UdpClient(GlobalVar.LocalPoint);
-            udp.clientRece.Client.ReceiveTimeout = 3000;//设定接收超时时间
+            UdpClient clientRecv = new UdpClient(GlobalVar.LocalPoint);
+            clientRecv.Client.ReceiveTimeout = 3000;//设定接收超时时间
             try
             {
-                webTest = udp.clientRece.Receive(ref GlobalVar.RemotePoint);
+                webTest = clientRecv.Receive(ref GlobalVar.RemotePoint);
                 for (int i = 0; i < GlobalVar.stateOut; i++)
                 {
                     if (webTest[i] == Convert.ToByte("eb", 16) && webTest[i + 1] == Convert.ToByte("90", 16)
@@ -64,7 +64,7 @@ namespace UpperComputer
             }
             finally
             {
-                udp.clientRece.Close();
+                clientRecv.Close();
             }
             StateBack(connectState);
         }
@@ -88,22 +88,32 @@ namespace UpperComputer
             }
         }
         #endregion
-
-
         private void btnC1_Click(object sender, EventArgs e)
         {
-            if (null == form1|| form1.IsDisposed == true)
+            if (null == form1 || form1.IsDisposed == true)
             { form1 = new Form1(); }
             form1.Show();
         }
 
         private void btnC2_Click(object sender, EventArgs e)
         {
-            if (null == form2 || form1.IsDisposed == true)
+            if (null == form2 || form2.IsDisposed == true)
             { form2 = new Form2(); }
             form2.Show();
         }
 
+        private void StartForm_Load(object sender, EventArgs e)
+        {
 
         }
+        private void StartForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+        /*private void SetButton(Button button)
+        {
+            MethodInfo methodinfo = button.GetType().GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod);
+            methodinfo.Invoke(button, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod, null, new object[] { ControlStyles.Selectable, false }, Application.CurrentCulture);
+        }*/
     }
+}

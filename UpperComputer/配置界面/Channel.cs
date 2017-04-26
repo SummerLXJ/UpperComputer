@@ -21,8 +21,10 @@ namespace UpperComputer
         public double m = 1000000.0;
         public double p1 = 80.0;
         public double pow_int = -1.54;
+        public byte[] control = new byte[GlobalVar.controlNum];
         private void Channel_Load(object sender, EventArgs e)
         {
+            this.control = MainForm._control;
             foreach (System.Windows.Forms.Control gb in this.Controls)
             {
                 if (gb is System.Windows.Forms.GroupBox)
@@ -34,9 +36,9 @@ namespace UpperComputer
                             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)control;
                             tb.ReadOnly = true;
                         }
-                        if (control is System.Windows.Forms.CheckBox)
+                        if (control is OnOffBtn)
                         {
-                            System.Windows.Forms.CheckBox cb = (System.Windows.Forms.CheckBox)control;
+                            OnOffBtn cb = (OnOffBtn)control;
                             cb.Enabled = false;
                         }
                         if (control is System.Windows.Forms.ComboBox)
@@ -55,7 +57,7 @@ namespace UpperComputer
         }
 
         #region 点击修改参数
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        private void onOffBtn4_Click(object sender, EventArgs e)
         {
             foreach (System.Windows.Forms.Control gb in this.Controls)
             {
@@ -68,9 +70,9 @@ namespace UpperComputer
                             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)control;
                             tb.ReadOnly = !tb.ReadOnly;
                         }
-                        if (control is System.Windows.Forms.CheckBox)
+                        if (control is UpperComputer.OnOffBtn)
                         {
-                            System.Windows.Forms.CheckBox cb = (System.Windows.Forms.CheckBox)control;
+                            OnOffBtn cb = (OnOffBtn)control;
                             cb.Enabled = !cb.Enabled;
                         }
                         if (control is System.Windows.Forms.ComboBox)
@@ -84,71 +86,71 @@ namespace UpperComputer
                             rb.Enabled = !rb.Enabled;
                         }
                     }
-                }                
+                }
             }
         }
         #endregion
 
         #region 控制信号下发
         public int control_signal_index = 4; //该参数为遥控通道1的开关对应的index
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)//载波
+        private void onOffBtn1_Click(object sender, EventArgs e)//载波
         {
             string str;
-            str = Convert.ToString(GlobalVar.control[control_signal_index], 2);
+            str = Convert.ToString(MainForm._control[control_signal_index], 2);
             str = method.Fill_Zero(str, 8);
-            if (checkBox2.Checked == true)
+            if (onOffBtn1.Checked == true)
             {
-                str = str.Remove(6, 1);
-                str = str.Insert(6, "1");
+                str = str.Remove(1, 1);
+                str = str.Insert(1, "1");
             }
             else
             {
-                str = str.Remove(6, 1);
-                str = str.Insert(6, "0");
+                str = str.Remove(1, 1);
+                str = str.Insert(1, "0");
             }
-            GlobalVar.control[control_signal_index] = Convert.ToByte(str, 2);
-            GlobalVar.control[GlobalVar.control.Length - 3] = method.sum_verify(GlobalVar.control);
-            method.Send_Control();
+            control[control_signal_index] = Convert.ToByte(str, 2);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control);
         }
 
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)//伪码
+        private void onOffBtn2_Click(object sender, EventArgs e)//伪码
         {
             string str;
-            str = Convert.ToString(GlobalVar.control[control_signal_index], 2);
+            str = Convert.ToString(control[control_signal_index], 2);
             str = method.Fill_Zero(str, 8);
-            if (checkBox3.Checked == true)
+            if (onOffBtn2.Checked == true)
             {
-                str = str.Remove(5, 1);
-                str = str.Insert(5, "1");
+                str = str.Remove(2, 1);
+                str = str.Insert(2, "1");
             }
             else
             {
                 str = str.Remove(5, 1);
                 str = str.Insert(5, "0");
             }
-            GlobalVar.control[control_signal_index] = Convert.ToByte(str, 2);
-            GlobalVar.control[GlobalVar.control.Length - 3] = method.sum_verify(GlobalVar.control);
-            method.Send_Control();
+            control[control_signal_index] = Convert.ToByte(str, 2);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control);
         }
 
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private void onOffBtn3_Click(object sender, EventArgs e)
         {
             string str;
-            str = Convert.ToString(GlobalVar.control[control_signal_index], 2);
+            str = Convert.ToString(control[control_signal_index], 2);
             str = method.Fill_Zero(str, 8);
-            if (checkBox4.Checked == true)
+            if (onOffBtn3.Checked == true)
             {
-                str = str.Remove(4, 1);
-                str = str.Insert(4, "1");
+                str = str.Remove(3, 1);
+                str = str.Insert(3, "1");
             }
             else
             {
                 str = str.Remove(4, 1);
                 str = str.Insert(4, "0");
             }
-            GlobalVar.control[control_signal_index] = Convert.ToByte(str, 2);
-            GlobalVar.control[GlobalVar.control.Length - 3] = method.sum_verify(GlobalVar.control);
-            method.Send_Control();
+            control[control_signal_index] = Convert.ToByte(str, 2);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control);
         }
 
         #endregion
@@ -161,7 +163,7 @@ namespace UpperComputer
         #endregion
 
         #region 参数转化为字节
-        public void byte_calculate( int length)
+        public void byte_calculate(int length)
         {
             for (int i = 0; i < length; i++)
             {
@@ -169,97 +171,97 @@ namespace UpperComputer
             }
             count = count + length;
         }
-        public void byte_calculate(string str,int length)//把输入字符串转化为位数标准的配置参数位并赋给b
+        public void byte_calculate(string str, int length)//把输入字符串转化为位数标准的配置参数位并赋给b
         {
-            str = method.Fill_Zero(str, 8*length);
+            str = method.Fill_Zero(str, 8 * length);
             for (int i = 0; i < length; i++)
             {
-                GlobalVar.b[count+i] = Convert.ToByte(str.Substring(8*i, 8), 2);
+                GlobalVar.b[count + i] = Convert.ToByte(str.Substring(8 * i, 8), 2);
             }
             count = count + length;
         }
-        #endregion 
+        #endregion
 
         #region 参数重置
         public void center_fre()
         {
             //try
             //{
-                string str = null;
-                //遥控1中频变动标识
-                GlobalVar.b[count] = Convert.ToByte("cc", 16);
-                count = count + 1;
-                //输出电平 2字节
-                str = Convert.ToString((int)(Math.Round(Math.Pow(2, 16) / (Math.Pow(10, (pow_int - Convert.ToDouble(this.textBox1.Text)) / 20)))), 2);
-                //str = Convert.ToString(Convert.ToUInt32(this.textBox1.Text, 10), 2);
-                byte_calculate(str, 2);
-                //中心频率 4字节
-                long ipart;
-                ipart = (long)Math.Round(Convert.ToDouble(this.textBox2.Text) / p1 * power);
-                str = Convert.ToString(ipart, 2);
+            string str = null;
+            //遥控1中频变动标识
+            GlobalVar.b[count] = Convert.ToByte("cc", 16);
+            count = count + 1;
+            //输出电平 2字节
+            str = Convert.ToString((int)(Math.Round(Math.Pow(2, 16) / (Math.Pow(10, (pow_int - Convert.ToDouble(this.textBox1.Text)) / 20)))), 2);
+            //str = Convert.ToString(Convert.ToUInt32(this.textBox1.Text, 10), 2);
+            byte_calculate(str, 2);
+            //中心频率 4字节
+            long ipart;
+            ipart = (long)Math.Round(Convert.ToDouble(this.textBox2.Text) / p1 * power);
+            str = Convert.ToString(ipart, 2);
+            byte_calculate(str, 4);
+            //频率工作模式 1字节
+            switch (this.comboBox1.Text)
+            {
+                case "归零": GlobalVar.b[count] = 0;
+                    break;
+                case "固定频率": GlobalVar.b[count] = 1;
+                    break;
+                case "正弦波": GlobalVar.b[count] = 2;
+                    break;
+                case "三角波": GlobalVar.b[count] = 3;
+                    break;
+                case "过航捷曲线": GlobalVar.b[count] = 4;
+                    break;
+                case "线性扫描": GlobalVar.b[count] = 5;
+                    break;
+                default: GlobalVar.b[count] = 0;
+                    break;
+            }
+            count = count + 1;
+            //多普勒范围 4字节
+            ipart = (long)Math.Round(Convert.ToDouble(this.textBox3.Text) * power / p1 / m);
+            long doppler_range = ipart;
+            str = Convert.ToString(ipart, 2);
+            byte_calculate(str, 4);
+            //预置多普勒 4字节
+            if (Convert.ToDouble(this.textBox4.Text) >= 0)
+            {
+                str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.textBox4.Text) * power / p1 / m), 2);
+            }
+            else
+            {
+                str = Convert.ToString((long)Math.Round(power - Math.Abs(Convert.ToDouble(this.textBox4.Text)) * power / p1 / m), 2);
+            }
+            byte_calculate(str, 4);
+            //多普勒变化率 4字节
+            if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
+            {
+                str = Convert.ToString((long)Math.Round((Convert.ToDouble(this.textBox5.Text) * power * 2047 / Convert.ToDouble(this.textBox3.Text) / m / p1)), 2);
+            }
+            else
+            {
+                str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.textBox5.Text) * power / p1 / p1 * (Math.Pow(2, 16) - 1) / m / m), 2);
+            }
+            byte_calculate(str, 4);
+            //多普勒加速度 4字节
+            str = Convert.ToString(Convert.ToUInt32(this.textBox6.Text), 2);
+            byte_calculate(str, 4);
+            //正弦扫频补偿因子 4字节
+            if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
+            {
+                double sine_coff = Convert.ToDouble(this.textBox5.Text) * 2047 / Math.Pow(10, 12) * power * Math.Pow(2, 16) / p1 / p1;
+                str = Convert.ToString((long)sine_coff, 2);
                 byte_calculate(str, 4);
-                //频率工作模式 1字节
-                switch (this.comboBox1.Text)
-                {
-                    case "归零": GlobalVar.b[count] = 0;
-                        break;
-                    case "固定频率": GlobalVar.b[count] = 1;
-                        break;
-                    case "正弦波": GlobalVar.b[count] = 2;
-                        break;
-                    case "三角波": GlobalVar.b[count] = 3;
-                        break;
-                    case "过航捷曲线": GlobalVar.b[count] = 4;
-                        break;
-                    case "线性扫描": GlobalVar.b[count] = 5;
-                        break;
-                    default: GlobalVar.b[count] = 0;
-                        break;
-                }
-                count = count + 1;
-                //多普勒范围 4字节
-                ipart = (long)Math.Round(Convert.ToDouble(this.textBox3.Text) * power / p1 / m);
-                long doppler_range = ipart;
-                str = Convert.ToString(ipart, 2);
-                byte_calculate(str, 4);
-                //预置多普勒 4字节
-                if (Convert.ToDouble(this.textBox4.Text) >= 0)
-                {
-                    str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.textBox4.Text) * power / p1 / m), 2);
-                }
-                else
-                {
-                    str = Convert.ToString((long)Math.Round(power - Math.Abs(Convert.ToDouble(this.textBox4.Text)) * power / p1 / m), 2);
-                }
-                byte_calculate( str, 4);
-                //多普勒变化率 4字节
-                if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
-                {
-                    str = Convert.ToString((long)Math.Round((Convert.ToDouble(this.textBox5.Text) * power * 2047 / Convert.ToDouble(this.textBox3.Text) / m / p1)), 2);
-                }
-                else
-                {
-                    str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.textBox5.Text) * power / p1 / p1 * (Math.Pow(2, 16) - 1) / m / m), 2);
-                }
-                byte_calculate(str, 4);
-                //多普勒加速度 4字节
-                str = Convert.ToString(Convert.ToUInt32(this.textBox6.Text), 2);
-                byte_calculate( str, 4);
-                //正弦扫频补偿因子 4字节
-                if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
-                {
-                    double sine_coff = Convert.ToDouble(this.textBox5.Text) * 2047 / Math.Pow(10, 12) * power * Math.Pow(2, 16) / p1 / p1;
-                    str = Convert.ToString((long)sine_coff, 2);
-                    byte_calculate( str, 4);
-                }
-                else
-                {
-                    byte_calculate(4);
-                }
-                //载波伪码相干开关
-                if (this.checkBox1.Checked == true) { GlobalVar.b[count] = 1; }
-                else { GlobalVar.b[count] = 0; }
-                count = count + 1;
+            }
+            else
+            {
+                byte_calculate(4);
+            }
+            //载波伪码相干开关
+            if (this.checkBox1.Checked == true) { GlobalVar.b[count] = 1; }
+            else { GlobalVar.b[count] = 0; }
+            count = count + 1;
             //}
             //catch
             //{
@@ -271,101 +273,101 @@ namespace UpperComputer
         {
             //try
             //{
-                string str = null;
-                //伪码变动标识
-                GlobalVar.b[count] = Convert.ToByte("cc", 16);
-                count = count + 1;
-                //预置码组8字节  
-                str = Convert.ToString(Convert.ToUInt16(this.textBox7.Text, 16), 2);
-                byte_calculate( str, 2);
-                str = Convert.ToString(Convert.ToUInt16(this.textBox8.Text, 16), 2);
-                byte_calculate(str, 2);
-                str = Convert.ToString(Convert.ToUInt16(this.textBox9.Text, 16), 2);
-                byte_calculate( str, 2);
-                str = Convert.ToString(Convert.ToUInt16(this.textBox10.Text, 16), 2);
-                byte_calculate( str, 2);
-                //码速率4字节
-                str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.comboBox2.Text) * power / p1), 2);
-                byte_calculate( str, 4);
-                //预置码多普勒4字节，与载波伪码相干开关状态有关
-                UInt32 middle_par = 0;
-                double d_middle_par = 0;
-                string str1 = null;
-                for (int i = 5; i < 9; i++)
+            string str = null;
+            //伪码变动标识
+            GlobalVar.b[count] = Convert.ToByte("cc", 16);
+            count = count + 1;
+            //预置码组8字节  
+            str = Convert.ToString(Convert.ToUInt16(this.textBox7.Text, 16), 2);
+            byte_calculate(str, 2);
+            str = Convert.ToString(Convert.ToUInt16(this.textBox8.Text, 16), 2);
+            byte_calculate(str, 2);
+            str = Convert.ToString(Convert.ToUInt16(this.textBox9.Text, 16), 2);
+            byte_calculate(str, 2);
+            str = Convert.ToString(Convert.ToUInt16(this.textBox10.Text, 16), 2);
+            byte_calculate(str, 2);
+            //码速率4字节
+            str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.comboBox2.Text) * power / p1), 2);
+            byte_calculate(str, 4);
+            //预置码多普勒4字节，与载波伪码相干开关状态有关
+            UInt32 middle_par = 0;
+            double d_middle_par = 0;
+            string str1 = null;
+            for (int i = 5; i < 9; i++)
+            {
+                str1 = str1 + method.Fill_Zero(Convert.ToString(GlobalVar.b[i], 2), 8);//计算上行频率
+            }
+            if (GlobalVar.b[infuence] == 0)
+            {
+                byte_calculate(4);
+            }
+            else
+            {
+                if (Convert.ToDouble(this.textBox4.Text) >= 0)
                 {
-                    str1 = str1 + method.Fill_Zero(Convert.ToString(GlobalVar.b[i], 2), 8);//计算上行频率
+                    middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.textBox4.Text) * Convert.ToDouble(this.comboBox2.Text) / Convert.ToUInt32(str1, 2) * power / p1));
                 }
-                if (GlobalVar.b[infuence] == 0)
+                else
+                {
+                    middle_par = (UInt32)(Math.Round(power - Math.Abs(Convert.ToDouble(this.textBox4.Text)) * Convert.ToDouble(this.comboBox2.Text) / Convert.ToUInt32(str1, 2) * power / p1));
+                }
+                str = method.Fill_Zero(Convert.ToString(middle_par, 2), 32);
+                byte_calculate(str, 4);
+            }
+            //码多普勒变化率4字节  与多普勒范围以及多普勒变化率相关
+            if (GlobalVar.b[infuence] == 0)
+            {
+                byte_calculate(4);
+            }
+            else
+            {
+                if (this.comboBox1.Text == this.comboBox1.Items[3].ToString())
+                {
+                    d_middle_par = Convert.ToDouble(this.textBox5.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2);
+                    middle_par = (UInt32)(Math.Round(d_middle_par / p1 / m / m / p1 * power * power));
+                    str = Convert.ToString(middle_par, 2);
+                    byte_calculate(str, 4);
+                }
+                else if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
+                {
+                    middle_par = (UInt32)(Math.Round(power * 2047 * Convert.ToDouble(this.textBox5.Text) / Convert.ToDouble(this.textBox3.Text) / p1 / m));
+                    str = Convert.ToString(middle_par, 2);
+                    byte_calculate(str, 4);
+                }
+                else
                 {
                     byte_calculate(4);
                 }
-                else
+            }
+            //码多普勒范围4字节 
+            if (GlobalVar.b[infuence] == 0)
+            {
+                byte_calculate(4);
+            }
+            else
+            {
+                middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.textBox3.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * power / p1 / m));
+                str = method.Fill_Zero(Convert.ToString(middle_par, 2), 32);
+                byte_calculate(str, 4);
+            }
+            //码多普勒补偿因子4字节  
+            if (GlobalVar.b[infuence] == 0)
+            {
+                middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * Math.Pow(2, 16)));
+            }
+            else
+            {
+                if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
                 {
-                    if (Convert.ToDouble(this.textBox4.Text) >= 0)
-                    {
-                        middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.textBox4.Text) * Convert.ToDouble(this.comboBox2.Text) / Convert.ToUInt32(str1, 2) * power / p1));
-                    }
-                    else
-                    {
-                        middle_par = (UInt32)(Math.Round(power - Math.Abs(Convert.ToDouble(this.textBox4.Text)) * Convert.ToDouble(this.comboBox2.Text) / Convert.ToUInt32(str1, 2) * power / p1));
-                    }
-                    str = method.Fill_Zero(Convert.ToString(middle_par, 2), 32);
-                    byte_calculate( str, 4);
-                }
-                //码多普勒变化率4字节  与多普勒范围以及多普勒变化率相关
-                if (GlobalVar.b[infuence] == 0)
-                {
-                    byte_calculate(4);
-                }
-                else
-                {
-                    if (this.comboBox1.Text == this.comboBox1.Items[3].ToString())
-                    {
-                        d_middle_par = Convert.ToDouble(this.textBox5.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2);
-                        middle_par = (UInt32)(Math.Round(d_middle_par / p1 / m / m / p1 * power * power));
-                        str = Convert.ToString(middle_par, 2);
-                        byte_calculate( str, 4);
-                    }
-                    else if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
-                    {
-                        middle_par = (UInt32)(Math.Round(power * 2047 * Convert.ToDouble(this.textBox5.Text) / Convert.ToDouble(this.textBox3.Text) / p1 / m));
-                        str = Convert.ToString(middle_par, 2);
-                        byte_calculate( str, 4);
-                    }
-                    else
-                    {
-                        byte_calculate(4);
-                    }
-                }
-                //码多普勒范围4字节 
-                if (GlobalVar.b[infuence] == 0)
-                {
-                    byte_calculate(4);
+                    middle_par = (UInt32)(Math.Round(Convert.ToDouble(textBox5.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * 2047 / p1 / m * power / p1 / m * power));
                 }
                 else
                 {
-                    middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.textBox3.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * power / p1 / m));
-                    str = method.Fill_Zero(Convert.ToString(middle_par, 2), 32);
-                    byte_calculate( str, 4);
+                    middle_par = 0;
                 }
-                //码多普勒补偿因子4字节  
-                if (GlobalVar.b[infuence] == 0)
-                {
-                    middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * Math.Pow(2, 16)));
-                }
-                else
-                {
-                    if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
-                    {
-                        middle_par = (UInt32)(Math.Round(Convert.ToDouble(textBox5.Text) * Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * 2047 / p1 / m * power / p1 / m * power));
-                    }
-                    else
-                    {
-                        middle_par = 0;
-                    }
-                }
-                str = Convert.ToString(middle_par, 2);
-                byte_calculate( str, 4);
+            }
+            str = Convert.ToString(middle_par, 2);
+            byte_calculate(str, 4);
             //}
             //catch
             //{
@@ -377,52 +379,52 @@ namespace UpperComputer
         {
             //try
             //{
-                string str = null;
-                //信息层变动标识
-                GlobalVar.b[count] = Convert.ToByte("cc", 16);
-                count = count + 1;
-                //信息速率4字节
-                double info_rate = Convert.ToDouble(textBox15.Text) / p1 * power / m;
-                str = Convert.ToString((UInt32)(Math.Round(Convert.ToDouble(textBox15.Text) / p1 * power / m)), 2);
-                byte_calculate( str, 4);
-                //信息来源1字节,01：随即数据块（多项式生成）02：外部定义固定格式数据块（4096Byte）03：外部定义（实时输入）
-                switch (this.comboBox3.Text)
-                {
-                    case "随机数据块": GlobalVar.b[count] = 1;
-                        break;
-                    case "外部数据块": GlobalVar.b[count] = 2;
-                        break;
-                    case "外部定义": GlobalVar.b[count] = 3;
-                        break;
-                    default: GlobalVar.b[count] = 1;
-                        break;
-                }
-                count = count + 1;
-                //数据信息多项式4字节
-                str = Convert.ToString(Convert.ToUInt16(this.textBox16.Text, 16), 2);
-                byte_calculate( str, 2);
-                str = Convert.ToString(Convert.ToUInt16(this.textBox17.Text, 16), 2);
-                byte_calculate( str, 2);
-                //信息空白位选择模式，0F：空闲填“0101”；F0：空闲填“0000”
-                GlobalVar.b[count] = Convert.ToByte(this.textBox18.Text, 16);
-                count = count + 1;
-                //信息加扰开关,0：加扰;1：不加扰
-                if (this.radioButton1.Checked == true) { GlobalVar.b[count] = 0; }
-                else { GlobalVar.b[count] = 1; }
-                count = count + 1;
-                //信息层补偿因子4字节
-                string str1 = null;
-                for (int i = 5; i < 9; i++)
-                {
-                    str1 = str1 + method.Fill_Zero(Convert.ToString(GlobalVar.b[i], 2), 8);//计算上行频率
-                }
-                //str = Convert.ToString(((long)Math.Round(info_rate * power / Convert.ToUInt32(str1, 2))), 2);
-                //byte_calculate( str, 4);
-                byte_calculate(4);
-                //干扰模式1字节
-                if (this.radioButton3.Checked == true) { GlobalVar.b[count] = 0; }
-                else { GlobalVar.b[count] = 1; }
-                count = count + 1;
+            string str = null;
+            //信息层变动标识
+            GlobalVar.b[count] = Convert.ToByte("cc", 16);
+            count = count + 1;
+            //信息速率4字节
+            double info_rate = Convert.ToDouble(textBox15.Text) / p1 * power / m;
+            str = Convert.ToString((UInt32)(Math.Round(Convert.ToDouble(textBox15.Text) / p1 * power / m)), 2);
+            byte_calculate(str, 4);
+            //信息来源1字节,01：随即数据块（多项式生成）02：外部定义固定格式数据块（4096Byte）03：外部定义（实时输入）
+            switch (this.comboBox3.Text)
+            {
+                case "随机数据块": GlobalVar.b[count] = 1;
+                    break;
+                case "外部数据块": GlobalVar.b[count] = 2;
+                    break;
+                case "外部定义": GlobalVar.b[count] = 3;
+                    break;
+                default: GlobalVar.b[count] = 1;
+                    break;
+            }
+            count = count + 1;
+            //数据信息多项式4字节
+            str = Convert.ToString(Convert.ToUInt16(this.textBox16.Text, 16), 2);
+            byte_calculate(str, 2);
+            str = Convert.ToString(Convert.ToUInt16(this.textBox17.Text, 16), 2);
+            byte_calculate(str, 2);
+            //信息空白位选择模式，0F：空闲填“0101”；F0：空闲填“0000”
+            GlobalVar.b[count] = Convert.ToByte(this.textBox18.Text, 16);
+            count = count + 1;
+            //信息加扰开关,0：加扰;1：不加扰
+            if (this.radioButton1.Checked == true) { GlobalVar.b[count] = 0; }
+            else { GlobalVar.b[count] = 1; }
+            count = count + 1;
+            //信息层补偿因子4字节
+            string str1 = null;
+            for (int i = 5; i < 9; i++)
+            {
+                str1 = str1 + method.Fill_Zero(Convert.ToString(GlobalVar.b[i], 2), 8);//计算上行频率
+            }
+            //str = Convert.ToString(((long)Math.Round(info_rate * power / Convert.ToUInt32(str1, 2))), 2);
+            //byte_calculate( str, 4);
+            byte_calculate(4);
+            //干扰模式1字节
+            if (this.radioButton3.Checked == true) { GlobalVar.b[count] = 0; }
+            else { GlobalVar.b[count] = 1; }
+            count = count + 1;
             //}
             //catch
             //{
@@ -457,16 +459,16 @@ namespace UpperComputer
                     }
                 }
             }
-            
+
         }
         public void parameter_down()  //21~87
-        {         
+        {
             //通道标示
-             //GlobalVar.b[count] = Convert.ToByte(channel_index.ToString()+channel_index.ToString(), 16);
-             count = count + 1;
-             center_fre();
-             pseudo_code();
-             information();    
+            //GlobalVar.b[count] = Convert.ToByte(channel_index.ToString()+channel_index.ToString(), 16);
+            count = count + 1;
+            center_fre();
+            pseudo_code();
+            information();
         }
 
         #endregion
@@ -477,7 +479,7 @@ namespace UpperComputer
             null_deal_with();
             //count = 3 + GlobalVar.rf_num + (channel_index - 1) * GlobalVar.channel_length;
             parameter_down();
-            this.checkBox5.Checked = false;
+            this.onOffBtn4.Checked = false;
             GlobalVar.b[GlobalVar.b.Length - 3] = method.sum_verify(GlobalVar.b);
             method.SendHandle();
             //method.sendCheckThread();
@@ -509,7 +511,7 @@ namespace UpperComputer
                 str = str + bs[count + i];
             }
             count = count + length;
-            return Convert.ToUInt32(str,2).ToString();
+            return Convert.ToUInt32(str, 2).ToString();
         }
         public void Channel_Config(byte[] b, string[] bs)  //每个通道的控件参数显示
         {
@@ -519,7 +521,7 @@ namespace UpperComputer
             //中频变动标识
             count = count + 1;
             //输出电平
-            this.textBox1.Text = text(2, bs); 
+            this.textBox1.Text = text(2, bs);
             //中心频率，按公式反推
             this.textBox2.Text = text(4, bs);//((int)(Math.Round(Convert.ToUInt32(text(4, bs)) / power * p1))).ToString();
             switch (b[count])//频率工作模式
@@ -581,7 +583,7 @@ namespace UpperComputer
             //信息层变动标识
             count = count + 1;
             //信息速率4字节
-            this.textBox15.Text = text(4, bs);  
+            this.textBox15.Text = text(4, bs);
             /*if (b[infuence] == 1)
             {
                 this.textBox15.Text = ((Convert.ToDouble(this.comboBox2.Text) * m * m / Convert.ToUInt32(bs[count] + bs[count + 1] + bs[count + 2] + bs[count + 3], 2) / 1023)).ToString();
@@ -609,7 +611,7 @@ namespace UpperComputer
             this.textBox17.Text = b[count + 2].ToString("x2") + b[count + 3].ToString("x2");
             count = count + 4;
             //信息空白位选择模式，0F：空闲填“0101”；F0：空闲填“0000”
-            this.textBox18.Text= b[count].ToString("x2");          
+            this.textBox18.Text = b[count].ToString("x2");
             count = count + 1;
             //信息加扰开关,0：加扰;1：不加扰
             switch (b[count])
@@ -639,7 +641,12 @@ namespace UpperComputer
             count = count + 1;
         }
 
-        #endregion 
+        #endregion
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
 

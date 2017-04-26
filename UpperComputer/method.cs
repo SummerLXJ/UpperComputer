@@ -9,12 +9,13 @@ using System.Collections;
 using System.IO;
 using System.Threading;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace UpperComputer
 {
     class Method
     {
-        //public static Method method = new Method();
+
         public void load_data_to_datagridview(DataGridView dataGridView, byte[] tc_data)
         {
             dataGridView.Rows.Clear();
@@ -67,27 +68,22 @@ namespace UpperComputer
             }
         }
 
-        public void ctrChanged(int index, string value)
+        public void ctrChanged(byte[] b,int index, string value)
         {
             string str;
-            str = Convert.ToString(GlobalVar.control[3], 2);
+            str = Convert.ToString(b[3], 2);
             str = Fill_Zero(str, 8);
             str = str.Remove(index, 1);
             str = str.Insert(index, value);
-            GlobalVar.control[3] = Convert.ToByte(str, 2);
+            b[3] = Convert.ToByte(str, 2);
         }
-        UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
+
+
         public void SendHandle()
         {
-            //UdpClient client = null;
-            //IPAddress remoteIP = IPAddress.Parse("10.129.41.96");
-            //int remotePort = 19200;
-            //IPEndPoint remotePoint = new IPEndPoint(remoteIP, remotePort);//实例化一个远程端点   
-            //client = new UdpClient(new IPEndPoint(IPAddress.Any, 18200));
-            //client.Send(GlobalVar.b, GlobalVar.b.Length, remotePoint);//将数据发送到远程端点
+            UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
             clientSend.Send(GlobalVar.b, GlobalVar.b.Length, GlobalVar.RemotePoint);//将数据发送到远程端点 
-            //client.Close();//关闭连接   
-            //FileStream sr = File.WriteAllBytes(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + ".txt", Pub_Variable.b);
+            clientSend.Close();
             StreamWriter sw;
             sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "发送的配置信息.txt");
             for (int i = 0; i < GlobalVar.b.Length; i++)
@@ -96,82 +92,19 @@ namespace UpperComputer
             }
             sw.Close();
         }
-        public void Send_Control()
+        public void Send_Control(byte[] control)
         {
-            //UdpClient client = null;
-            //client = new UdpClient(GlobalVar.LocalPoint_Send);
-            //client.Client.SendTimeout = 3000;
-            //try
-            //{
-            clientSend.Send(GlobalVar.control, GlobalVar.control.Length, GlobalVar.RemotePoint);//将数据发送到远程端点 
-
+            UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
+            clientSend.Send(control, control.Length, GlobalVar.RemotePoint);//将数据发送到远程端点 
             StreamWriter sw;
             sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "发送的控制信息.txt");
-            for (int i = 0; i < GlobalVar.control.Length; i++)
+            for (int i = 0; i < control.Length; i++)
             {
-                sw.WriteLine(GlobalVar.control[i].ToString("x2"));//x2表示两位的16进制数，为了字符整齐
+                sw.WriteLine(control[i].ToString("x2"));//x2表示两位的16进制数，为了字符整齐
             }
             sw.Close();
-            
+            clientSend.Close();
         }
-        #region 发送校验
-       public class CheckParam
-        {
-            public byte[] origin;
-            public string type;           
-        }
-        CheckParam param = new CheckParam();
-        private delegate void stateCheckDelegate(bool ACK); //委托以控制主线程控件   
-        /* public void sendCheckThread()//(object sender, EventArgs e)
-        {
-            Thread thread_check = new Thread(new ParameterizedThreadStart(Send_Check));//多线程           
-            thread_check.IsBackground = true;
-            thread_check.Start(param);
-        }*/
-        /*public void Send_Check(object status)
-        {
-            CheckParam param = status as CheckParam;
-            bool ACK = false;
-            clientRecv.Client.SendTimeout = 3000;
-            //UdpClient client = new UdpClient(GlobalVar.LocalPoint);
-            try
-            {
-                byte[] configAck = clientRecv.Receive(ref GlobalVar.RemotePoint);//接收数据
-                MessageBox.Show("异常");
-                byte sumVerify = param.origin[param.origin.Length - 2];
-                if (configAck[0] == Convert.ToByte("eb", 16) && configAck[1] == Convert.ToByte("90", 16)
-                        && configAck[2] == Convert.ToByte(param.type, 16) && configAck[(configAck.Length - 2)] == sumVerify)
-                {
-                    ACK = true;
-                }
-                //client.Close();
-            }
-            catch
-            {
-                ACK = false;
-               
-            }
-            /*finally
-            {
-                client.Close();
-            }
-            StateBack(ACK);
-        }*/
-        private void StateBack(bool ACK)
-        {
-            stateCheckDelegate SCD = new stateCheckDelegate(StateBack);
-            if (ACK)
-            {
-                MessageBox.Show("配置文件已下发！");
-            }
-            else
-            {
-                MessageBox.Show("配置文件未成功接收,请重新下发！");
-                
-            }
-        }
-        #endregion
-
 
         public string bytetostring(byte[] b)   //字节转八位二进制
         {
@@ -209,7 +142,15 @@ namespace UpperComputer
             }
             return bs;
         }
-
+        public byte[] FillHeadTail(byte[] b, string type)
+        {
+            b[0] = Convert.ToByte("eb", 16);//把16进制的数转为8bit正整数
+            b[1] = Convert.ToByte("90", 16);
+            b[2] = Convert.ToByte(type, 16);//控制包标识符
+            b[b.Length - 2] = Convert.ToByte("be", 16);
+            b[b.Length - 1] = Convert.ToByte("09", 16);
+            return b;
+        }
         public byte[] remove_header(byte[] b, int num)
         {
             byte[] data = new byte[b.Length - num];
@@ -375,31 +316,31 @@ namespace UpperComputer
         public static int rf_num = 18;
         public static int channel_length = 76;
         //public static int b_num1 = 6 + rf_num + channel_length * 6;
-        public static int rfConfig = 6 + rf_num;
+        public static int rfConfigNum = 6 + rf_num;
         public static int configNum = 6 + channel_length;
         public static int stateOut = 6 + 100;
-        public static int b_num2 = 6 + 44;
-        public static byte[] brf = new byte[rfConfig];
+        public static int controlNum = 6 + 44;
+        //public static byte[] brf = new byte[rfConfig];
         public static byte[] b = new byte[configNum];
-
-        public static byte[] control = new byte[b_num2];
+        //public static byte[][] configByte = new byte[6][];
+        //public static byte[] control = new byte[controlNum];
         public static byte[] cc_site = new byte[] { 4, 18, 29, 29, 18, 29, 29,  18, 
                                                         29, 29, 18, 29, 29, 18, 29, 29, 18, 29, 29 };//各配置变动标识位
         //public static byte[] cc_site = new byte[] { 4, 18, 25+4, 29, 13+4, 25+4, 29, 14+4, 24+4, 22, 24+4, 22, 24+4, 22, 24+4, 22, 5, 14, 5 }; 
         public static string last_updown;
         public static string uplink_data;
         public static IPEndPoint LocalPoint_Send = new IPEndPoint(IPAddress.Any, 18100);
-        public static IPEndPoint LocalPoint = new IPEndPoint(IPAddress.Any, 18000);
+        public static IPEndPoint LocalPoint = new IPEndPoint(IPAddress.Any, 18200);
         public static IPEndPoint RemotePoint = new IPEndPoint(IPAddress.Parse("10.129.41.2"), 19200);
         public static ArrayList dot_rx1 = new ArrayList();
         public static long dot_num = 0;
 
     }
-    public class UDP
+    /*public class UDP
     {
         public UdpClient clientRece = new UdpClient(GlobalVar.LocalPoint);
         public UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
-    }
+    }*/
     public class Fruit
     {
         public string No { get; set; }

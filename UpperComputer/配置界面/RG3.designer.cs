@@ -31,7 +31,7 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.panel1.SuspendLayout();
+            //this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -116,8 +116,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            //this.panel1.ResumeLayout(false);
+           // this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
