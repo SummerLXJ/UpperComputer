@@ -107,7 +107,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 268);
+            this.ClientSize = new System.Drawing.Size(1077, 497);
             this.Name = "TC2";
             this.Text = "TC2";
             this.Load += new System.EventHandler(this.TC2_Load);

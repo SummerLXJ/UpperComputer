@@ -54,11 +54,12 @@ C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperC
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Properties.Resources.resources
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.OnOffBtn.resources
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Channel.resources
-C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG1.resources
-C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG2.resources
-C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG3.resources
-C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.RG4.resources
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC1.resources
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TC2.resources
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.csproj.GenerateResource.Cache
 C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form1.resources
+C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TR1.resources
+C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TR2.resources
+C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TR3.resources
+C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.TR4.resources
+C:\Users\admin\Documents\GitHub\UpperComputer\UpperComputer\obj\x86\Debug\UpperComputer.Form2.resources

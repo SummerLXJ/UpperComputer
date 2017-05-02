@@ -33,9 +33,11 @@
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.ClientSize = new System.Drawing.Size(1461, 900);
+            this.ClientSize = new System.Drawing.Size(1514, 882);
             this.Name = "Form1";
+            this.Text = "通道1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
 
         }

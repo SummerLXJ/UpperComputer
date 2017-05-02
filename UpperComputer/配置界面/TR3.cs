@@ -9,17 +9,18 @@ using System.Windows.Forms;
 
 namespace UpperComputer
 {
-    public partial class TC1 : Channel
+    public partial class TR3 : Channel
     {
-        public TC1()
+        public TR3()
         {
             InitializeComponent();
         }
 
-        private void TC1_Load(object sender, EventArgs e)
+        private void RG3_Load(object sender, EventArgs e)
         {
-            this.chanelindex = 0;
-            this.Text = "通道"+StartForm.chanelTotal+" TC1";
+            this.chanelindex = 4;
+            this.Text = "通道" + StartForm.chanelTotal + " TR3";
+
         }
     }
 }

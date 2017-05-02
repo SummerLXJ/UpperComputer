@@ -98,29 +98,29 @@
     <Compile Include="配置界面\Channel.designer.cs">
       <DependentUpon>Channel.cs</DependentUpon>
     </Compile>
-    <Compile Include="配置界面\RG1.cs">
+    <Compile Include="配置界面\TR1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="配置界面\RG1.designer.cs">
-      <DependentUpon>RG1.cs</DependentUpon>
+    <Compile Include="配置界面\TR1.designer.cs">
+      <DependentUpon>TR1.cs</DependentUpon>
     </Compile>
-    <Compile Include="配置界面\RG2.cs">
+    <Compile Include="配置界面\TR2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="配置界面\RG2.designer.cs">
-      <DependentUpon>RG2.cs</DependentUpon>
+    <Compile Include="配置界面\TR2.designer.cs">
+      <DependentUpon>TR2.cs</DependentUpon>
     </Compile>
-    <Compile Include="配置界面\RG3.cs">
+    <Compile Include="配置界面\TR3.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="配置界面\RG3.designer.cs">
-      <DependentUpon>RG3.cs</DependentUpon>
+    <Compile Include="配置界面\TR3.designer.cs">
+      <DependentUpon>TR3.cs</DependentUpon>
     </Compile>
-    <Compile Include="配置界面\RG4.cs">
+    <Compile Include="配置界面\TR4.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="配置界面\RG4.designer.cs">
-      <DependentUpon>RG4.cs</DependentUpon>
+    <Compile Include="配置界面\TR4.designer.cs">
+      <DependentUpon>TR4.cs</DependentUpon>
     </Compile>
     <Compile Include="配置界面\TC1.cs">
       <SubType>Form</SubType>
@@ -136,6 +136,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -165,17 +168,17 @@
     <EmbeddedResource Include="配置界面\Channel.resx">
       <DependentUpon>Channel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="配置界面\RG1.resx">
-      <DependentUpon>RG1.cs</DependentUpon>
+    <EmbeddedResource Include="配置界面\TR1.resx">
+      <DependentUpon>TR1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="配置界面\RG2.resx">
-      <DependentUpon>RG2.cs</DependentUpon>
+    <EmbeddedResource Include="配置界面\TR2.resx">
+      <DependentUpon>TR2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="配置界面\RG3.resx">
-      <DependentUpon>RG3.cs</DependentUpon>
+    <EmbeddedResource Include="配置界面\TR3.resx">
+      <DependentUpon>TR3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="配置界面\RG4.resx">
-      <DependentUpon>RG4.cs</DependentUpon>
+    <EmbeddedResource Include="配置界面\TR4.resx">
+      <DependentUpon>TR4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="配置界面\TC1.resx">
       <DependentUpon>TC1.cs</DependentUpon>

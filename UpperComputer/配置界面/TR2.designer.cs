@@ -1,6 +1,6 @@
 ﻿namespace UpperComputer
 {
-    partial class RG1
+    partial class TR2
     {
         /// <summary>
         /// Required designer variable.
@@ -102,14 +102,14 @@
             // 
             this.textBox15.ReadOnly = true;
             // 
-            // RG1
+            // RG2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 272);
-            this.Name = "RG1";
-            this.Text = "RG1";
-            this.Load += new System.EventHandler(this.RG1_Load);
+            this.ClientSize = new System.Drawing.Size(691, 276);
+            this.Name = "TR2";
+            this.Text = "TR2";
+            this.Load += new System.EventHandler(this.RG2_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

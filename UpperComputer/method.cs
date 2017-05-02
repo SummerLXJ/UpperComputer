@@ -15,7 +15,6 @@ namespace UpperComputer
 {
     class Method
     {
-
         public void load_data_to_datagridview(DataGridView dataGridView, byte[] tc_data)
         {
             dataGridView.Rows.Clear();
@@ -37,7 +36,6 @@ namespace UpperComputer
                         dataGridView.Rows[i].Cells[j].Value = tc_data[i * 16 + j - 1].ToString("x2");
                         dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightGray;
                     }
-
                 }
             }
             else
@@ -148,7 +146,7 @@ namespace UpperComputer
             b[1] = Convert.ToByte("90", 16);
             b[2] = Convert.ToByte(type, 16);//控制包标识符
             b[b.Length - 2] = Convert.ToByte("be", 16);
-            b[b.Length - 1] = Convert.ToByte("09", 16);
+            b[b.Length-1] = Convert.ToByte("09", 16);
             return b;
         }
         public byte[] remove_header(byte[] b, int num)
@@ -306,7 +304,88 @@ namespace UpperComputer
             }
             return find;
         }
-
+        #region 下发信号返回校验
+        public delegate bool CheckHandle(byte[] origin, string type);
+        bool Foo(byte[] origin, string type)
+        {
+            UdpClient clientRecv = new UdpClient(GlobalVar.LocalPoint);
+            clientRecv.Client.ReceiveTimeout = 1000;
+            bool ack = false;
+            try
+            {
+                byte[] configAck = clientRecv.Receive(ref GlobalVar.RemotePoint);//接收数据
+                byte sumVerify = origin[origin.Length - 2];
+                if (configAck[0] == Convert.ToByte("eb", 16) && configAck[1] == Convert.ToByte("90", 16)
+                        && configAck[2] == Convert.ToByte(type, 16) && configAck[(configAck.Length - 2)] == sumVerify)
+                {
+                    MessageBox.Show("信号下发成功！");
+                    ack = true;
+                }
+                else
+                {
+                    MessageBox.Show("校验和有误，请重新下发！");
+                    ack = false;
+                }
+            }
+            catch
+            {
+                ack = false;
+            }
+            finally
+            { clientRecv.Close(); }
+            return ack;
+        }
+        public void BackCheck(OnOffBtn btn, byte[] sendbyte, string type)
+        {
+            bool ack = false;
+            try
+            {
+                CheckHandle ch = new CheckHandle(this.Foo);
+                IAsyncResult ar = ch.BeginInvoke(sendbyte, type, null, ch);
+                ack = ch.EndInvoke(ar);
+            }
+            catch
+            {
+                ack = false;
+            }
+            finally
+            {
+                if (!ack)
+                {
+                    btn.isCheck = !btn.isCheck;
+                    btn.Invalidate();
+                    /*if (btn.Checked == true)
+                    {
+                        method.ctrChanged(, "1");
+                    }
+                    if (btn.Checked == false)
+                    {
+                        method.ctrChanged(1, "0");
+                    }*/
+                    //此处不恢复原来的控制，以便于在配置信号处的使用
+                    MessageBox.Show("信号下发失败！");
+                    //this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
+                                               //DateTime.Now.ToLocalTime().ToString() + " 信号下发失败";
+                }
+            }
+        }
+        # endregion
+        public static byte[] brf = new byte[GlobalVar.rfConfigNum];
+        public static byte[][] configByte = new byte[GlobalVar.chanelCount][];
+        public static byte[] control = new byte[GlobalVar.controlNum];
+        public byte[] _control
+        {
+            set { control = value; }
+            get { return control; }
+        }
+        public byte[][] _configByte
+        {
+            set
+            {
+                configByte = value; 
+            }
+            get { return configByte; }
+        } 
     }
 
 
@@ -314,19 +393,16 @@ namespace UpperComputer
     {
         //帧头+帧尾+帧类型+校验
         public static int rf_num = 18;
-        public static int channel_length = 76;
+        public static int chanelCount = 6;
+        public static int channel_length = 590;
         //public static int b_num1 = 6 + rf_num + channel_length * 6;
         public static int rfConfigNum = 6 + rf_num;
         public static int configNum = 6 + channel_length;
         public static int stateOut = 6 + 100;
         public static int controlNum = 6 + 44;
-        //public static byte[] brf = new byte[rfConfig];
-        public static byte[] b = new byte[configNum];
-        //public static byte[][] configByte = new byte[6][];
-        //public static byte[] control = new byte[controlNum];
-        public static byte[] cc_site = new byte[] { 4, 18, 29, 29, 18, 29, 29,  18, 
-                                                        29, 29, 18, 29, 29, 18, 29, 29, 18, 29, 29 };//各配置变动标识位
-        //public static byte[] cc_site = new byte[] { 4, 18, 25+4, 29, 13+4, 25+4, 29, 14+4, 24+4, 22, 24+4, 22, 24+4, 22, 24+4, 22, 5, 14, 5 }; 
+        public static byte[] b = new byte[configNum];        
+        public static byte[] cc_site = new byte[] { 4, 29, 29};//各配置变动标识位
+       
         public static string last_updown;
         public static string uplink_data;
         public static IPEndPoint LocalPoint_Send = new IPEndPoint(IPAddress.Any, 18100);
@@ -334,13 +410,9 @@ namespace UpperComputer
         public static IPEndPoint RemotePoint = new IPEndPoint(IPAddress.Parse("10.129.41.2"), 19200);
         public static ArrayList dot_rx1 = new ArrayList();
         public static long dot_num = 0;
-
+        
     }
-    /*public class UDP
-    {
-        public UdpClient clientRece = new UdpClient(GlobalVar.LocalPoint);
-        public UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
-    }*/
+
     public class Fruit
     {
         public string No { get; set; }

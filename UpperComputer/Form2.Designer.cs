@@ -28,7 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Form2
+            // 
+
+            this._control = new byte[] {
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0)),
+        ((byte)(0))};
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.ClientSize = new System.Drawing.Size(1492, 826);
+            this.Name = "Form2";
+            this.Text = "通道2";
+            this.Load += new System.EventHandler(this.Form2_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
