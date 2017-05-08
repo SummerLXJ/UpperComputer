@@ -11,14 +11,14 @@ namespace UpperComputer
 {
     public partial class TC1 : Channel
     {
-        public TC1(): base()
+        public TC1(): base(1,0)
         {
             InitializeComponent();
         }
 
         private void TC1_Load(object sender, EventArgs e)
         {
-            this.chanelindex = 0;
+            this.channelindex = 0;
             this.Text = "通道"+StartForm.chanelTotal+" TC1";
         }
     }

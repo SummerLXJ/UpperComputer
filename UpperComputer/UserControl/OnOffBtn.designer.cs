@@ -32,15 +32,18 @@
             // 
             // OnOffBtn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OnOffBtn";
-            this.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(219, 130);
             this.Click += new System.EventHandler(this.OnOffBtn_Click);
+            this.ResumeLayout(false);
 
         }
 
         #endregion
+
 
 
 

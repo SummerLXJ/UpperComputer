@@ -131,6 +131,9 @@
             this.遥测4配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.下行遥测1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.下行遥测2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.下行测量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1143,7 +1146,10 @@
             this.遥测1配置ToolStripMenuItem,
             this.遥测2配置ToolStripMenuItem,
             this.遥测3配置ToolStripMenuItem,
-            this.遥测4配置ToolStripMenuItem});
+            this.遥测4配置ToolStripMenuItem,
+            this.下行遥测1ToolStripMenuItem,
+            this.下行遥测2ToolStripMenuItem,
+            this.下行测量ToolStripMenuItem});
             this.参数配置ToolStripMenuItem.Name = "参数配置ToolStripMenuItem";
             this.参数配置ToolStripMenuItem.Size = new System.Drawing.Size(94, 28);
             this.参数配置ToolStripMenuItem.Text = "参数配置";
@@ -1200,6 +1206,24 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // 下行遥测1ToolStripMenuItem
+            // 
+            this.下行遥测1ToolStripMenuItem.Name = "下行遥测1ToolStripMenuItem";
+            this.下行遥测1ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
+            this.下行遥测1ToolStripMenuItem.Text = "下行遥测1";
+            // 
+            // 下行遥测2ToolStripMenuItem
+            // 
+            this.下行遥测2ToolStripMenuItem.Name = "下行遥测2ToolStripMenuItem";
+            this.下行遥测2ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
+            this.下行遥测2ToolStripMenuItem.Text = "下行遥测2";
+            // 
+            // 下行测量ToolStripMenuItem
+            // 
+            this.下行测量ToolStripMenuItem.Name = "下行测量ToolStripMenuItem";
+            this.下行测量ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
+            this.下行测量ToolStripMenuItem.Text = "下行测量";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1210,8 +1234,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "测试界面";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1359,6 +1383,9 @@
         private System.Windows.Forms.ToolStripMenuItem 遥测4配置ToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem 下行遥测1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 下行遥测2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 下行测量ToolStripMenuItem;
         
     }
 }

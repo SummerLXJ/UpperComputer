@@ -22,7 +22,6 @@ namespace UpperComputer
         byte[][] configByte2 = new byte[GlobalVar.chanelCount][];
         private void Form2_Load(object sender, EventArgs e)
         {
-            this.CHANNEL = 2;
             for (int i = 0; i < GlobalVar.chanelCount; i++)
             {
                 configByte2[i] = new byte[GlobalVar.configNum];
@@ -89,7 +88,7 @@ namespace UpperComputer
             this._control = control2;
             this._configByte = configByte2;
         }
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             configByte2 = this._configSave2;
             control2 = this._controlSave2;
@@ -101,15 +100,12 @@ namespace UpperComputer
                     lastCon[j + i * GlobalVar.configNum] = configByte2[i][j];
                 }
             }
-            StreamWriter sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C2配置信息.txt");
+            string filename = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C2配置信息.txt";
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
             for (int i = 0; i < lastCon.Length; i++)
             {
                 sw.WriteLine(lastCon[i].ToString("x2"));
-            }
-            sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C2控制信号.txt");
-            for (int i = 0; i < GlobalVar.controlNum; i++)
-            {
-                sw.WriteLine(control2[i].ToString("x2"));
             }
             sw.Close();
         }

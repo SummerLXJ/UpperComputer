@@ -951,7 +951,7 @@
             this.onOffBtn1.Checked = false;
             this.onOffBtn1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn1.Location = new System.Drawing.Point(7, 22);
-            this.onOffBtn1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn1.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn1.Name = "onOffBtn1";
             this.onOffBtn1.Size = new System.Drawing.Size(49, 23);
             this.onOffBtn1.TabIndex = 53;
@@ -972,7 +972,7 @@
             this.onOffBtn2.Checked = false;
             this.onOffBtn2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn2.Location = new System.Drawing.Point(113, 22);
-            this.onOffBtn2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn2.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn2.Name = "onOffBtn2";
             this.onOffBtn2.Size = new System.Drawing.Size(49, 23);
             this.onOffBtn2.TabIndex = 55;
@@ -993,7 +993,7 @@
             this.onOffBtn3.Checked = false;
             this.onOffBtn3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn3.Location = new System.Drawing.Point(227, 22);
-            this.onOffBtn3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn3.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn3.Name = "onOffBtn3";
             this.onOffBtn3.Size = new System.Drawing.Size(49, 23);
             this.onOffBtn3.TabIndex = 57;
@@ -1014,11 +1014,11 @@
             this.onOffBtn4.Checked = false;
             this.onOffBtn4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn4.Location = new System.Drawing.Point(724, 406);
-            this.onOffBtn4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn4.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn4.Name = "onOffBtn4";
             this.onOffBtn4.Size = new System.Drawing.Size(55, 25);
             this.onOffBtn4.TabIndex = 59;
-            this.onOffBtn4.Click += new System.EventHandler(this.onOffBtn4_Click);
+            this.onOffBtn4.Click += new System.EventHandler(this.onOffButton4_Click);
             // 
             // label4
             // 

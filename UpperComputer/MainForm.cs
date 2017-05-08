@@ -20,19 +20,22 @@ namespace UpperComputer
     public partial class MainForm : Form
     {
         Method method = new Method();
-        
-        public static int _CHANNEL;
-        public int CHANNEL
-        {
-            set { _CHANNEL = value; }
-            get { return _CHANNEL; }
-        }
+        Channel ch1;
+        Channel ch2;
+        Channel ch3;
+        Channel ch4;
+        Channel ch5;
+        Channel ch6;
+        /*
         TC1 TC1 = new TC1();
         TC2 TC2 = new TC2();
         TR1 TR1 = new TR1();
         TR2 TR2 = new TR2();
         TR3 TR3 = new TR3();
         TR4 TR4 = new TR4();
+         * */
+
+        public int formIndex { private set; get; }
         public static byte[] brf = new byte[GlobalVar.rfConfigNum];
         public static byte[][] configByte = new byte[GlobalVar.chanelCount][];
         public static byte[] control = new byte[GlobalVar.controlNum];
@@ -46,8 +49,10 @@ namespace UpperComputer
             set { configByte = value; }
             get { return configByte; }
         }
+
         public static byte[] controlSave1 = new byte[GlobalVar.controlNum];
         public static byte[][] configSave1 = new byte[GlobalVar.chanelCount][];
+
         public byte[] _controlSave1
         {
             set { controlSave1 = value; }
@@ -70,9 +75,17 @@ namespace UpperComputer
             set { configSave2 = value; }
             get { return configSave2; }
         }
+
         public MainForm(int FormIndex)
         {
             InitializeComponent();
+            this.formIndex = FormIndex;
+            ch1 = new Channel(formIndex, 0);
+            ch2 = new Channel(formIndex, 1);
+            ch3 = new Channel(formIndex, 2);
+            ch4 = new Channel(formIndex, 3);
+            ch5 = new Channel(formIndex, 4);
+            ch6 = new Channel(formIndex, 5);
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -111,7 +124,7 @@ namespace UpperComputer
         {
             ControlChange(1, onOffBtn1.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn1, control, "34");
         }
 
@@ -119,35 +132,35 @@ namespace UpperComputer
         {
             ControlChange(2, onOffBtn2.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn2, control, "34");
         }
         private void onOffBtn3_Click(object sender, EventArgs e)
         {
             ControlChange(3, onOffBtn3.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn3, control, "34");
         }
         private void onOffBtn4_Click(object sender, EventArgs e)
         {
             ControlChange(4, onOffBtn4.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn4, control, "34");
         }
         private void onOffBtn5_Click(object sender, EventArgs e)
         {
             ControlChange(5, onOffBtn5.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn5, control, "34");
         }
         private void onOffBtn6_Click(object sender, EventArgs e)
         {
             ControlChange(6, onOffBtn6.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control, CHANNEL);
+            method.Send_Control(control, formIndex);
             method.BackCheck(onOffBtn6, control, "34");
         }
         #endregion
@@ -190,66 +203,66 @@ namespace UpperComputer
             }
             switch (configIndex)
             {
-                case 1: TC1.Channel_Config(b, bs); break;
-                case 2: TC2.Channel_Config(b, bs); break;
-                case 3: TR1.Channel_Config(b, bs); break;
-                case 4: TR2.Channel_Config(b, bs); break;
-                case 5: TR3.Channel_Config(b, bs); break;
-                case 6: TR4.Channel_Config(b, bs); break;
+                case 1: ch1.Channel_Config(b, bs); break;
+                case 2: ch2.Channel_Config(b, bs); break;
+                case 3: ch3.Channel_Config(b, bs); break;
+                case 4: ch4.Channel_Config(b, bs); break;
+                case 5: ch5.Channel_Config(b, bs); break;
+                case 6: ch6.Channel_Config(b, bs); break;
             }
         }
 
 
         private void 遥控1配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TC1 || TC1.IsDisposed == true)
-            { TC1 = new TC1(); }
-            TC1.Show();
+            if (null == ch1 || ch1.IsDisposed == true)
+            { ch1 = new Channel(formIndex, 0); }
+            ch1.Show();
         }
 
         private void 遥控2配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TC2 || TC2.IsDisposed == true)
-            { TC2 = new TC2(); }
-            TC2.Show();
+            if (null == ch2 || ch2.IsDisposed == true)
+            { ch2 = new Channel(formIndex, 0); }
+            ch2.Show();
         }
 
         private void 遥测1配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TR1 || TR1.IsDisposed == true)
-            { TR1 = new TR1(); }
-            TR1.Show();
+            if (null == ch3 || ch3.IsDisposed == true)
+            { ch3 = new Channel(formIndex, 0); }
+            ch3.Show();
         }
 
         private void 遥测2配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TR2 || TR2.IsDisposed == true)
-            { TR2 = new TR2(); }
-            TR2.Show();
+            if (null == ch4 || ch4.IsDisposed == true)
+            { ch4 = new Channel(formIndex, 0); }
+            ch4.Show();
         }
 
         private void 遥测3配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TR3 || TR3.IsDisposed == true)
-            { TR3 = new TR3(); }
-            TR3.Show();
+            if (null == ch5 || ch5.IsDisposed == true)
+            { ch1 = new Channel(formIndex, 0); }
+            ch6.Show();
         }
 
         private void 遥测4配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == TR4 || TR4.IsDisposed == true)
-            { TR4 = new TR4(); }
-            TR4.Show();
+            if (null == ch6 || ch6.IsDisposed == true)
+            { ch6 = new Channel(formIndex, 0); }
+            ch6.Show();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CHANNEL == 1)
+            if (formIndex == 1)
             {
                 this._configSave1 = this._configByte;
                 this._controlSave1 = this._control;
             }
-            if (CHANNEL == 2)
+            if (formIndex == 2)
             {
                 this._configSave2 = this._configByte;
                 this._controlSave2 = this._control;

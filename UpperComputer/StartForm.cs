@@ -195,12 +195,12 @@ namespace UpperComputer
                 if (combine_data[i] == Convert.ToByte("eb", 16) && combine_data[i + 1] == Convert.ToByte("90", 16))
                 {
                     byte channelbyte = combine_data[i + 2];
-                    string chanel = method.Fill_Zero(Convert.ToString(channelbyte, 2), 8).Substring(0, 2);
-                    if (chanel == "00")
+                    string channel = method.Fill_Zero(Convert.ToString(channelbyte, 2), 8).Substring(0, 2);
+                    if (channel == "00")
                     {
                         //chanelTotal = "1";
                     }
-                    if (chanel == "11")
+                    if (channel == "11")
                     {
                         //chanelTotal = "2";
                     }

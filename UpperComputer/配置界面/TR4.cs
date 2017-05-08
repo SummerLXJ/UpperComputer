@@ -11,14 +11,14 @@ namespace UpperComputer
 {
     public partial class TR4 : Channel
     {
-        public TR4() : base(MainForm._CHANNEL)
+        public TR4() : base(1,5)
         {
             InitializeComponent();
         }
 
         private void RG4_Load(object sender, EventArgs e)
         {
-            this.chanelindex = 5;
+            this.channelindex = 5;
             this.Text = "通道" + StartForm.chanelTotal + " TR4";
 
         }

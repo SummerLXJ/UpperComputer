@@ -89,7 +89,7 @@
             this.Name = "Form2";
             this.Text = "通道2";
             this.Load += new System.EventHandler(this.Form2_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.ResumeLayout(false);
 
         }

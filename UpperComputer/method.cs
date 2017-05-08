@@ -400,7 +400,7 @@ namespace UpperComputer
         public static int configNum = 6 + channel_length;
         public static int stateOut = 6 + 100;
         public static int controlNum = 6 + 44;
-        public static byte[] b = new byte[configNum];        
+       public static byte[] b = new byte[configNum];        
         public static byte[] cc_site = new byte[] { 4, 29, 29};//各配置变动标识位
        
         public static string last_updown;

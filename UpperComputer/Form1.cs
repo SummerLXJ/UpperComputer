@@ -12,7 +12,8 @@ namespace UpperComputer
 {
     public partial class Form1 : UpperComputer.MainForm
     {
-        public Form1():base(1)
+        public Form1()
+            : base(1)
         {
             InitializeComponent();
         }
@@ -22,7 +23,7 @@ namespace UpperComputer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.CHANNEL = 1;
+
             for (int i = 0; i < GlobalVar.chanelCount; i++)
             {
                 configByte1[i] = new byte[GlobalVar.configNum];
@@ -30,10 +31,12 @@ namespace UpperComputer
             string filename = System.AppDomain.CurrentDomain.BaseDirectory + "C1配置信息.txt";
             string strline = null;
             ArrayList blist = new ArrayList();
-            StreamReader sr;
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
+            //StreamReader sr;
             try
             {
-                sr = new StreamReader(filename);
+                //sr = new StreamReader(filename);
                 while ((strline = sr.ReadLine()) != null)
                 {
                     blist.Add(strline);
@@ -43,7 +46,7 @@ namespace UpperComputer
                 {
                     for (int j = 0; j < GlobalVar.configNum; j++)
                     {
-                        configByte1[i][j] = Convert.ToByte(myArr[i], 16);
+                        configByte1[i][j] = Convert.ToByte(myArr[j + i * GlobalVar.configNum], 16);
                     }
                 }
                 for (int i = 0; i < GlobalVar.chanelCount; i++)
@@ -64,13 +67,15 @@ namespace UpperComputer
             }
             filename = System.AppDomain.CurrentDomain.BaseDirectory + "C1控制信号.txt";
             blist = new ArrayList();
-            sr = new StreamReader(filename);
-            while ((strline = sr.ReadLine()) != null)
-            {
-                blist.Add(strline);
-            }
+            fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            sr = new StreamReader(fs, System.Text.Encoding.Default);
             try
             {
+                while ((strline = sr.ReadLine()) != null)
+                {
+                    blist.Add(strline);
+                }
+
                 string[] myArr2 = (string[])blist.ToArray(typeof(string));
                 for (int i = 0; i < control.Length; i++)
                 {
@@ -84,19 +89,16 @@ namespace UpperComputer
                     control1[i] = 0;
                 }
             }
-            control1 = method.FillHeadTail(control, "34");
+            control1 = method.FillHeadTail(control1, "34");
             this._control = control1;
             this._configByte = configByte1;
         }
-        private void Form1_Click(object sender, EventArgs e)
-        {
-            this.CHANNEL = 1;
-        }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
 
             configByte1 = this._configSave1;
-            control1 = this._controlSave1; 
+            control1 = this._controlSave1;
             byte[] lastCon = new byte[GlobalVar.configNum * 6];
             for (int i = 0; i < 6; i++)
             {
@@ -105,17 +107,18 @@ namespace UpperComputer
                     lastCon[j + i * GlobalVar.configNum] = configByte1[i][j];
                 }
             }
-            StreamWriter sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C1配置信息.txt");
-            for (int i = 0; i < lastCon.Length; i++)
+            try
             {
-                sw.WriteLine(lastCon[i].ToString("x2"));
+                string filename = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C1配置信息.txt";
+                FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+                StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
+                for (int i = 0; i < lastCon.Length; i++)
+                {
+                    sw.WriteLine(lastCon[i].ToString("x2"));
+                }
+                sw.Close();
             }
-            sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C1控制信号.txt");
-            for (int i = 0; i < GlobalVar.controlNum; i++)
-            {
-                sw.WriteLine(control1[i].ToString("x2"));
-            }
-            sw.Close();
+            catch { };
         }
     }
 }
