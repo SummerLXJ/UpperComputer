@@ -12,7 +12,7 @@ namespace UpperComputer
 {
     public partial class Form2 : UpperComputer.MainForm
     {
-        public Form2()
+        public Form2():base(2)
         {
             InitializeComponent();
             
@@ -63,7 +63,7 @@ namespace UpperComputer
                 }
                 MessageBox.Show("初始配置信息不存在，请自行配置！");
             }
-            filename = System.AppDomain.CurrentDomain.BaseDirectory + "C1控制信号.txt";
+            filename = System.AppDomain.CurrentDomain.BaseDirectory + "C2控制信号.txt";
             blist = new ArrayList();
             sr = new StreamReader(filename);
             while ((strline = sr.ReadLine()) != null)

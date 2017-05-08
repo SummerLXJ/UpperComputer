@@ -11,12 +11,12 @@ namespace UpperComputer
 {
     public partial class TR2 : Channel
     {
-        public TR2()
+        public TR2(): base(MainForm._CHANNEL)
         {
             InitializeComponent();
         }
 
-        private void RG2_Load(object sender, EventArgs e)
+        private void TR2_Load(object sender, EventArgs e)
         {
             this.chanelindex = 3;
             this.Text = "通道" + StartForm.chanelTotal + " TR2";

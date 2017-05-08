@@ -109,7 +109,7 @@
             this.ClientSize = new System.Drawing.Size(691, 276);
             this.Name = "TR2";
             this.Text = "TR2";
-            this.Load += new System.EventHandler(this.RG2_Load);
+            this.Load += new System.EventHandler(this.TR2_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

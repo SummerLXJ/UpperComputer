@@ -11,7 +11,7 @@ namespace UpperComputer
 {
     public partial class TC1 : Channel
     {
-        public TC1()
+        public TC1(): base()
         {
             InitializeComponent();
         }

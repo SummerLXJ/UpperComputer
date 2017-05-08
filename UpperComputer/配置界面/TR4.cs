@@ -11,7 +11,7 @@ namespace UpperComputer
 {
     public partial class TR4 : Channel
     {
-        public TR4()
+        public TR4() : base(MainForm._CHANNEL)
         {
             InitializeComponent();
         }

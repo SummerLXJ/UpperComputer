@@ -12,7 +12,7 @@ namespace UpperComputer
 {
     public partial class Form1 : UpperComputer.MainForm
     {
-        public Form1()
+        public Form1():base(1)
         {
             InitializeComponent();
         }
@@ -87,6 +87,10 @@ namespace UpperComputer
             control1 = method.FillHeadTail(control, "34");
             this._control = control1;
             this._configByte = configByte1;
+        }
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            this.CHANNEL = 1;
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {

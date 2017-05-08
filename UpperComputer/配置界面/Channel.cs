@@ -19,10 +19,10 @@ namespace UpperComputer
         public double pow_int = -1.54;//输出电平处，满幅中频输出功率
         public byte[] control = new byte[GlobalVar.controlNum];
         public byte[][] configByte = new byte[GlobalVar.chanelCount][];
-        public int count = 3;
+        public int count = 3; 
         public int infuence = 33;//载波伪码相干位
         public byte chanelindex = 0;
-        public Channel()
+        public Channel(int phyChannel)
         {
             InitializeComponent();
             this.control = MainForm.control;
@@ -127,7 +127,7 @@ namespace UpperComputer
             }
             control[control_signal_index] = Convert.ToByte(str, 2);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control);
+            method.Send_Control(control,MainForm._CHANNEL);
             method.BackCheck(this.onOffBtn1, this.control, "34");
         }
 
@@ -148,7 +148,7 @@ namespace UpperComputer
             }
             control[control_signal_index] = Convert.ToByte(str, 2);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control);
+            method.Send_Control(control,MainForm._CHANNEL);
             method.BackCheck(this.onOffBtn2, this.control, "34");
         }
 
@@ -169,7 +169,7 @@ namespace UpperComputer
             }
             control[control_signal_index] = Convert.ToByte(str, 2);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control);
+            method.Send_Control(control,MainForm._CHANNEL);
             method.BackCheck(this.onOffBtn3, this.control, "34");
         }
 

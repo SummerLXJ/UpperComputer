@@ -20,17 +20,23 @@ namespace UpperComputer
     public partial class MainForm : Form
     {
         Method method = new Method();
+        
+        public static int _CHANNEL;
+        public int CHANNEL
+        {
+            set { _CHANNEL = value; }
+            get { return _CHANNEL; }
+        }
         TC1 TC1 = new TC1();
         TC2 TC2 = new TC2();
         TR1 TR1 = new TR1();
         TR2 TR2 = new TR2();
         TR3 TR3 = new TR3();
         TR4 TR4 = new TR4();
-        public int CHANNEL = 1;
         public static byte[] brf = new byte[GlobalVar.rfConfigNum];
         public static byte[][] configByte = new byte[GlobalVar.chanelCount][];
         public static byte[] control = new byte[GlobalVar.controlNum];
-       public byte[] _control
+        public byte[] _control
         {
             set { control = value; }
             get { return control; }
@@ -64,7 +70,7 @@ namespace UpperComputer
             set { configSave2 = value; }
             get { return configSave2; }
         }
-        public MainForm()
+        public MainForm(int FormIndex)
         {
             InitializeComponent();
         }
@@ -90,13 +96,13 @@ namespace UpperComputer
             }
             if (status)
             {
-                method.ctrChanged(control,index, "1");
+                method.ctrChanged(control, index, "1");
                 this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
                                            DateTime.Now.ToLocalTime().ToString() + " 打开" + str + "通道";
             }
             else
             {
-                method.ctrChanged(control,index, "0");
+                method.ctrChanged(control, index, "0");
                 this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
                                            DateTime.Now.ToLocalTime().ToString() + " 关闭" + str + "通道";
             }
@@ -105,43 +111,43 @@ namespace UpperComputer
         {
             ControlChange(1, onOffBtn1.Checked);
             control[control.Length - 3] = method.sum_verify(control);
-            method.Send_Control(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn1, control, "34");
         }
 
         private void onOffBtn2_Click(object sender, EventArgs e)
         {
             ControlChange(2, onOffBtn2.Checked);
-            control[control.Length - 2] = method.sum_verify(control);
-            method.Send_Control(control);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn2, control, "34");
         }
         private void onOffBtn3_Click(object sender, EventArgs e)
         {
             ControlChange(3, onOffBtn3.Checked);
-            control[control.Length - 2] = method.sum_verify(control);
-            method.Send_Control(control);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn3, control, "34");
         }
         private void onOffBtn4_Click(object sender, EventArgs e)
         {
             ControlChange(4, onOffBtn4.Checked);
-           control[control.Length - 2] = method.sum_verify(control);
-            method.Send_Control(control);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn4, control, "34");
         }
         private void onOffBtn5_Click(object sender, EventArgs e)
         {
             ControlChange(5, onOffBtn5.Checked);
-            control[control.Length - 2] = method.sum_verify(control);
-            method.Send_Control(control);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn5, control, "34");
         }
         private void onOffBtn6_Click(object sender, EventArgs e)
         {
             ControlChange(6, onOffBtn6.Checked);
-            control[control.Length - 2] = method.sum_verify(control);
-            method.Send_Control(control);
+            control[control.Length - 3] = method.sum_verify(control);
+            method.Send_Control(control, CHANNEL);
             method.BackCheck(onOffBtn6, control, "34");
         }
         #endregion
@@ -163,7 +169,7 @@ namespace UpperComputer
                 GlobalVar.b = pb;
                 fr.Close();
                 this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
-                                           DateTime.Now.ToLocalTime().ToString()+ " 加载配置文件 " + fileName;
+                                           DateTime.Now.ToLocalTime().ToString() + " 加载配置文件 " + fileName;
             }
             method.SendHandle();
             method.no_change_set(GlobalVar.b);
@@ -211,7 +217,7 @@ namespace UpperComputer
         private void 遥测1配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (null == TR1 || TR1.IsDisposed == true)
-            { TR1 = new TR1();} 
+            { TR1 = new TR1(); }
             TR1.Show();
         }
 

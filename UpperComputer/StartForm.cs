@@ -20,7 +20,6 @@ namespace UpperComputer
 {
     public partial class StartForm : Form
     {
-        MainForm mf = new MainForm();
         Form1 form1 = new Form1();
         Form2 form2 = new Form2();
         Method method = new Method();
@@ -129,7 +128,7 @@ namespace UpperComputer
                 {
                     thread1 = new Thread(new ThreadStart(ReceiveHandle));
                     thread1.Start();
-                    mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 启动接收线程";
+                    //mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 启动接收线程";
                     this.button1.Text = "暂停接收数据";
                 }
             }
@@ -138,13 +137,13 @@ namespace UpperComputer
                 if (!thread_control)
                 {
                     thread1.Suspend();
-                    mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 暂停接收线程";
+                    //mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 暂停接收线程";
                     this.button1.Text = "开始接收数据";
                 }
                 else
                 {
                     thread1.Resume();
-                    mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 重启接收线程";
+                    //mf.richTextBox3.Text = mf.richTextBox3.Text + Environment.NewLine + DateTime.Now.ToLongTimeString() + " 重启接收线程";
                     this.button1.Text = "暂停接收数据";
                 }
             }

@@ -90,12 +90,12 @@ namespace UpperComputer
             }
             sw.Close();
         }
-        public void Send_Control(byte[] control)
+        public void Send_Control(byte[] control, int CHANNEL)
         {
             UdpClient clientSend = new UdpClient(GlobalVar.LocalPoint_Send);
             clientSend.Send(control, control.Length, GlobalVar.RemotePoint);//将数据发送到远程端点 
             StreamWriter sw;
-            sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "发送的控制信息.txt");
+            sw = new StreamWriter(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "C" + CHANNEL+"控制信号.txt");
             for (int i = 0; i < control.Length; i++)
             {
                 sw.WriteLine(control[i].ToString("x2"));//x2表示两位的16进制数，为了字符整齐
