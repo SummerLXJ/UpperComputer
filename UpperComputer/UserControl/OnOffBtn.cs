@@ -26,8 +26,6 @@ namespace UpperComputer
             this.Cursor = Cursors.Hand;
             this.Size = new Size(45, 18);
         }
-        public delegate void CheckedHandle(object sender, EventArgs e);
-        public event CheckedHandle CheckedChanged;
         public bool isCheck = false;
         /// <summary>
         /// 是否选中

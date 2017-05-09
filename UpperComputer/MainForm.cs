@@ -52,7 +52,6 @@ namespace UpperComputer
 
         public static byte[] controlSave1 = new byte[GlobalVar.controlNum];
         public static byte[][] configSave1 = new byte[GlobalVar.chanelCount][];
-
         public byte[] _controlSave1
         {
             set { controlSave1 = value; }
@@ -75,7 +74,11 @@ namespace UpperComputer
             set { configSave2 = value; }
             get { return configSave2; }
         }
-
+        public static byte[][] configSend{ private set; get;}
+        public MainForm()
+        {
+            InitializeComponent();
+        }
         public MainForm(int FormIndex)
         {
             InitializeComponent();
@@ -89,8 +92,8 @@ namespace UpperComputer
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this._configByte = method._configByte;
-            this._control = method._control;
+            /*this._configByte = method._configByte;
+            this._control = method._control;*/
         }
 
         #region 控制开关
@@ -164,29 +167,6 @@ namespace UpperComputer
             method.BackCheck(onOffBtn6, control, "34");
         }
         #endregion
-        private void 加载配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "文本文件(*.txt)|*.txt";
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = openFileDialog1.FileName;
-                FileStream fr = File.OpenRead(fileName);
-                byte[] pb = new byte[GlobalVar.configNum];
-                fr.Read(pb, 0, pb.Length);
-                byte indexbyte = pb[3];
-                string configstring = Convert.ToString(indexbyte, 2);
-                configstring = method.Fill_Zero(configstring, 8);
-                configstring = configstring.Substring(2, 6);
-                int configIndex = Convert.ToInt32(configstring);//Convert.ToString(indexbyte,2).Substring(2, 6));
-                configuration(configIndex, pb);
-                GlobalVar.b = pb;
-                fr.Close();
-                this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
-                                           DateTime.Now.ToLocalTime().ToString() + " 加载配置文件 " + fileName;
-            }
-            method.SendHandle();
-            method.no_change_set(GlobalVar.b);
-        }
         public void configuration(int configIndex, byte[] b)
         {
             //帧头 0~1
@@ -211,8 +191,116 @@ namespace UpperComputer
                 case 6: ch6.Channel_Config(b, bs); break;
             }
         }
+        #region 配置文件ToolStrip
+        private void 加载配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "文本文件(*.txt)|*.txt";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = openFileDialog1.FileName;
+                configByte = LoadConfigFile(fileName,configByte);
+                this.richTextBox3.Text = this.richTextBox3.Text + Environment.NewLine +
+                                           DateTime.Now.ToLocalTime().ToString() + " 加载配置文件 " + fileName;
+            }
+            method.SendHandle();
+            method.no_change_set(GlobalVar.b);
+        }
+
+        private void 保存配置文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
+        public byte[] LoadControlFile(string filename)
+        {
+            string strline2 = null;
+            ArrayList blist2 = new ArrayList();
+            FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr2 = new StreamReader(fs2, System.Text.Encoding.Default);
+            try
+            {
+                while ((strline2 = sr2.ReadLine()) != null)
+                {
+                    blist2.Add(strline2);
+                }
+                string[] myArr2 = (string[])blist2.ToArray(typeof(string));
+                for (int i = 0; i < GlobalVar.controlNum; i++)
+                {
+                    control[i] = Convert.ToByte(myArr2[i], 16);
+                }
+            }
+            catch
+            {
+                for (int i = 0; i < GlobalVar.controlNum; i++)
+                {
+                    control[i] = 0;
+                }
+            }
+            return control;
+        }
+
+        public byte[][] LoadConfigFile(string filename, byte[][] configByte)
+        {
+            string strline = null;
+            ArrayList blist = new ArrayList();
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
+            //StreamReader sr;
+            try
+            {
+                //sr = new StreamReader(filename);
+                while ((strline = sr.ReadLine()) != null)
+                {
+                    blist.Add(strline);
+                }
+                string[] myArr = (string[])blist.ToArray(typeof(string));
+                for (int i = 0; i < GlobalVar.chanelCount; i++)
+                {
+                    for (int j = 0; j < GlobalVar.configNum; j++)
+                    {
+                        configByte[i][j] = Convert.ToByte(myArr[j + i * GlobalVar.configNum], 16);
+                    }
+                }
+                for (int i = 0; i < GlobalVar.chanelCount; i++)
+                {
+                    configuration(i + 1, configByte[i]);
+                }
+            }
+            catch (Exception ex)
+            {
+                for (int i = 0; i < GlobalVar.chanelCount; i++)
+                {
+                    for (int j = 0; j < GlobalVar.configNum; j++)
+                    {
+                        configByte[i][j] = 0;
+                    }
+                }
+                MessageBox.Show("初始配置信息不存在，请自行配置！\n" + "错误：\n" + ex);
+            }
+            return configByte;
+        }
+        public void SaveConfigFile(string filename, byte[][] configByte)
+        {
+            byte[] lastCon = new byte[GlobalVar.configNum * 6];
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < GlobalVar.configNum; j++)
+                {
+                    lastCon[j + i * GlobalVar.configNum] = configByte[i][j];
+                }
+            }
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
+            for (int i = 0; i < lastCon.Length; i++)
+            {
+                sw.WriteLine(lastCon[i].ToString("x2"));
+            }
+            sw.Close();
+        }
+        #endregion
+
+        #region 参数配置ToolStrip
         private void 遥控1配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (null == ch1 || ch1.IsDisposed == true)
@@ -245,7 +333,7 @@ namespace UpperComputer
         {
             if (null == ch5 || ch5.IsDisposed == true)
             { ch1 = new Channel(formIndex, 0); }
-            ch6.Show();
+            ch5.Show();
         }
 
         private void 遥测4配置ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,6 +342,7 @@ namespace UpperComputer
             { ch6 = new Channel(formIndex, 0); }
             ch6.Show();
         }
+        #endregion
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -268,5 +357,7 @@ namespace UpperComputer
                 this._controlSave2 = this._control;
             }
         }
+
+
     }
 }

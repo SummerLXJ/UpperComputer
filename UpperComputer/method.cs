@@ -304,6 +304,9 @@ namespace UpperComputer
             }
             return find;
         }
+
+        
+
         #region 下发信号返回校验
         public delegate bool CheckHandle(byte[] origin, string type);
         bool Foo(byte[] origin, string type)
@@ -371,7 +374,7 @@ namespace UpperComputer
         }
         # endregion
         public static byte[] brf = new byte[GlobalVar.rfConfigNum];
-        public static byte[][] configByte = new byte[GlobalVar.chanelCount][];
+        /*public static byte[][] configByte = new byte[GlobalVar.chanelCount][];
         public static byte[] control = new byte[GlobalVar.controlNum];
         public byte[] _control
         {
@@ -385,7 +388,7 @@ namespace UpperComputer
                 configByte = value; 
             }
             get { return configByte; }
-        } 
+        } */
     }
 
 

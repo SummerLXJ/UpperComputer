@@ -129,11 +129,11 @@
             this.遥测2配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.遥测3配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.遥测4配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.下行遥测1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.下行遥测2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.下行测量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -626,7 +626,7 @@
             this.onOffBtn8.Checked = false;
             this.onOffBtn8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn8.Location = new System.Drawing.Point(1269, 74);
-            this.onOffBtn8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn8.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn8.Name = "onOffBtn8";
             this.onOffBtn8.Size = new System.Drawing.Size(69, 27);
             this.onOffBtn8.TabIndex = 167;
@@ -637,7 +637,7 @@
             this.onOffBtn7.Checked = false;
             this.onOffBtn7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn7.Location = new System.Drawing.Point(1099, 74);
-            this.onOffBtn7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn7.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn7.Name = "onOffBtn7";
             this.onOffBtn7.Size = new System.Drawing.Size(68, 27);
             this.onOffBtn7.TabIndex = 166;
@@ -648,7 +648,7 @@
             this.onOffBtn6.Checked = false;
             this.onOffBtn6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn6.Location = new System.Drawing.Point(936, 74);
-            this.onOffBtn6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn6.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn6.Name = "onOffBtn6";
             this.onOffBtn6.Size = new System.Drawing.Size(68, 27);
             this.onOffBtn6.TabIndex = 165;
@@ -660,7 +660,7 @@
             this.onOffBtn5.Checked = false;
             this.onOffBtn5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn5.Location = new System.Drawing.Point(781, 74);
-            this.onOffBtn5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn5.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn5.Name = "onOffBtn5";
             this.onOffBtn5.Size = new System.Drawing.Size(68, 27);
             this.onOffBtn5.TabIndex = 164;
@@ -672,7 +672,7 @@
             this.onOffBtn4.Checked = false;
             this.onOffBtn4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn4.Location = new System.Drawing.Point(609, 74);
-            this.onOffBtn4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn4.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn4.Name = "onOffBtn4";
             this.onOffBtn4.Size = new System.Drawing.Size(68, 27);
             this.onOffBtn4.TabIndex = 163;
@@ -684,7 +684,7 @@
             this.onOffBtn3.Checked = false;
             this.onOffBtn3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onOffBtn3.Location = new System.Drawing.Point(438, 74);
-            this.onOffBtn3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onOffBtn3.Margin = new System.Windows.Forms.Padding(4);
             this.onOffBtn3.Name = "onOffBtn3";
             this.onOffBtn3.Size = new System.Drawing.Size(68, 27);
             this.onOffBtn3.TabIndex = 162;
@@ -1136,6 +1136,7 @@
             this.保存配置文件ToolStripMenuItem.Name = "保存配置文件ToolStripMenuItem";
             this.保存配置文件ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
             this.保存配置文件ToolStripMenuItem.Text = "保存配置文件";
+            this.保存配置文件ToolStripMenuItem.Click += new System.EventHandler(this.保存配置文件ToolStripMenuItem_Click);
             // 
             // 参数配置ToolStripMenuItem
             // 
@@ -1202,10 +1203,6 @@
             this.遥测4配置ToolStripMenuItem.Text = "遥测4配置";
             this.遥测4配置ToolStripMenuItem.Click += new System.EventHandler(this.遥测4配置ToolStripMenuItem_Click);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // 下行遥测1ToolStripMenuItem
             // 
             this.下行遥测1ToolStripMenuItem.Name = "下行遥测1ToolStripMenuItem";
@@ -1223,6 +1220,10 @@
             this.下行测量ToolStripMenuItem.Name = "下行测量ToolStripMenuItem";
             this.下行测量ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
             this.下行测量ToolStripMenuItem.Text = "下行测量";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // MainForm
             // 
