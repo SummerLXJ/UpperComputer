@@ -20,13 +20,17 @@ namespace UpperComputer
         Method method = new Method();
         byte[] control1 = new byte[GlobalVar.controlNum];
         byte[][] configByte1 = new byte[GlobalVar.chanelCount][];
-
+        byte[][] configSend1 = new byte[GlobalVar.chanelCount][];
         private void Form1_Load(object sender, EventArgs e)
         {
 
             for (int i = 0; i < GlobalVar.chanelCount; i++)
             {
                 configByte1[i] = new byte[GlobalVar.configNum];
+            }
+            for (int i = 0; i < GlobalVar.chanelCount; i++)
+            {
+                configSend1[i] = new byte[GlobalVar.configNum];
             }
             string filename = System.AppDomain.CurrentDomain.BaseDirectory + "C1配置信息.txt";
             configByte1 = LoadConfigFile(filename,configByte1);
@@ -35,6 +39,7 @@ namespace UpperComputer
             control1 = method.FillHeadTail(control1, "34");
             this._control = control1;
             this._configByte = configByte1;
+            this._configSend = configSend1;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

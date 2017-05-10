@@ -26,6 +26,7 @@ namespace UpperComputer
         Channel ch4;
         Channel ch5;
         Channel ch6;
+        RF_set rf_set = new RF_set();
         /*
         TC1 TC1 = new TC1();
         TC2 TC2 = new TC2();
@@ -67,14 +68,19 @@ namespace UpperComputer
         public byte[] _controlSave2
         {
             set { controlSave2 = value; }
-            get { return controlSave1; }
+            get { return controlSave2; }
         }
         public byte[][] _configSave2
         {
             set { configSave2 = value; }
             get { return configSave2; }
         }
-        public static byte[][] configSend{ private set; get;}
+        public static byte[][] configSend = new byte[GlobalVar.chanelCount][];
+        public byte[][] _configSend
+        {
+            set { _configSend = value; }
+            get { return _configSend; }
+        }
         public MainForm()
         {
             InitializeComponent();
@@ -342,6 +348,12 @@ namespace UpperComputer
             { ch6 = new Channel(formIndex, 0); }
             ch6.Show();
         }
+        private void 射频参数配置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (null == rf_set || rf_set.IsDisposed == true)
+            { rf_set = new RF_set(); }
+            rf_set.Show();
+        }
         #endregion
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -357,6 +369,8 @@ namespace UpperComputer
                 this._controlSave2 = this._control;
             }
         }
+
+        
 
 
     }

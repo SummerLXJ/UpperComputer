@@ -1160,6 +1160,7 @@
             this.射频参数配置ToolStripMenuItem.Name = "射频参数配置ToolStripMenuItem";
             this.射频参数配置ToolStripMenuItem.Size = new System.Drawing.Size(188, 28);
             this.射频参数配置ToolStripMenuItem.Text = "射频参数配置";
+            this.射频参数配置ToolStripMenuItem.Click += new System.EventHandler(this.射频参数配置ToolStripMenuItem_Click);
             // 
             // 遥控1配置ToolStripMenuItem
             // 

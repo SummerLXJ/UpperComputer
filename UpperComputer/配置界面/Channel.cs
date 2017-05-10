@@ -22,7 +22,7 @@ namespace UpperComputer
         public int rateItem = 0;//选择的速率
         public byte[] control = new byte[GlobalVar.controlNum];
         public byte[][] configByte = new byte[GlobalVar.chanelCount][];
-        public byte[][] configOrigin = new byte[GlobalVar.chanelCount][];
+        public byte[][] configSend = new byte[GlobalVar.chanelCount][];
         public int count = 3;
         public int infuence = 33;//载波伪码相干位
         public int channelindex = 0;
@@ -50,7 +50,7 @@ namespace UpperComputer
             OnMyValueChanged += new MyValueChanged(onOffButton4_Click);
             this.control = MainForm.control;
             this.configByte = MainForm.configByte;
-            this.configOrigin = MainForm.configSend;
+            this.configSend = MainForm.configSend;
             string name = " TC1";
             switch (ChannelIndex)
             {
@@ -220,7 +220,7 @@ namespace UpperComputer
         {
             for (int i = 0; i < length; i++)
             {
-                configByte[channelindex][count + i] = 0;
+                configSend[channelindex][count + i] = 0;
             }
             count = count + length;
         }
@@ -230,9 +230,18 @@ namespace UpperComputer
             str = method.Fill_Zero(str, 8 * length);
             for (int i = 0; i < length; i++)
             {
-                configByte[channelindex][count + i] = Convert.ToByte(str.Substring(8 * i, 8), 2);
+                configSend[channelindex][count + i] = Convert.ToByte(str.Substring(8 * i, 8), 2);
             }
             count = count + length;
+        }
+        public void originbyte_calculate(string str, int length)//赋元数据
+        {
+            str = method.Fill_Zero(str, 8 * length);
+            for (int i = 0; i < length; i++)
+            {
+                configByte[channelindex][count + i] = Convert.ToByte(str.Substring(8 * i, 8), 2);
+            }
+            //count = count + length;
         }
         #endregion
 
@@ -244,13 +253,16 @@ namespace UpperComputer
 
             string str = null;
             //遥控1中频变动标识
+            configSend[channelindex][count] = Convert.ToByte("cc", 16);
             configByte[channelindex][count] = Convert.ToByte("cc", 16);
             count = count + 1;
             //输出电平 2字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox1.Text), 2), 4);
             double tmp1 = (pow_int - Convert.ToDouble(this.textBox1.Text)) / 20;
-            str = Convert.ToString((int)(Math.Round(Math.Pow(2, 16) / (Math.Pow(10, tmp1)))),2);
+            str = Convert.ToString((int)(Math.Round(Math.Pow(2, 16) / (Math.Pow(10, tmp1)))), 2);
             byte_calculate(str, 2);
             //中心频率 4字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox2.Text), 2), 4);
             long ipart;
             ipart = (long)Math.Round(Convert.ToDouble(this.textBox2.Text) / p1 * power);
             str = Convert.ToString(ipart, 2);
@@ -258,28 +270,37 @@ namespace UpperComputer
             //频率工作模式 1字节
             switch (this.comboBox1.Text)
             {
-                case "暂停": configByte[channelindex][count] = 0;
+                case "暂停": configSend[channelindex][count] = 0;
+                    configByte[channelindex][count] = 0;
                     break;
-                case "固定频率": configByte[channelindex][count] = 1;
+                case "固定频率": configSend[channelindex][count] = 1;
+                    configByte[channelindex][count] = 1;
                     break;
-                case "正弦波": configByte[channelindex][count] = 2;
+                case "正弦波": configSend[channelindex][count] = 2;
+                    configByte[channelindex][count] = 2;
                     break;
-                case "三角波": configByte[channelindex][count] = 3;
+                case "三角波": configSend[channelindex][count] = 3;
+                    configByte[channelindex][count] = 3;
                     break;
-                case "过航捷曲线": configByte[channelindex][count] = 4;
+                case "过航捷曲线": configSend[channelindex][count] = 4;
+                    configByte[channelindex][count] = 4;
                     break;
-                case "归零": configByte[channelindex][count] = 5;
+                case "归零": configSend[channelindex][count] = 5;
+                    configByte[channelindex][count] = 5;
                     break;
-                default: configByte[channelindex][count] = 5;
+                default: configSend[channelindex][count] = 5;
+                    configByte[channelindex][count] = 5;
                     break;
             }
             count = count + 1;
             //多普勒范围 4字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox3.Text), 2), 4);
             ipart = (long)Math.Round(Convert.ToDouble(this.textBox3.Text) * power / p1 / m);
             long doppler_range = ipart;
             str = Convert.ToString(ipart, 2);
             byte_calculate(str, 4);
             //预置多普勒 4字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox4.Text), 2), 4);
             if (Convert.ToDouble(this.textBox4.Text) >= 0)
             {
                 str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.textBox4.Text) * power / p1 / m), 2);
@@ -290,6 +311,7 @@ namespace UpperComputer
             }
             byte_calculate(str, 4);
             //多普勒变化率 4字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox5.Text), 2), 4);
             if (this.comboBox1.Text == this.comboBox1.Items[2].ToString())
             {
                 //str = 2^32*2047*多普勒变化率/多普勒范围/80MHz
@@ -308,6 +330,7 @@ namespace UpperComputer
             }
 
             //多普勒加速度 4字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox6.Text), 2), 4);
             str = Convert.ToString(Convert.ToUInt32(this.textBox6.Text), 2);
             byte_calculate(str, 4);
             //正弦扫频补偿因子 4字节
@@ -323,8 +346,16 @@ namespace UpperComputer
                 byte_calculate(4);
             }
             //载波伪码相干开关
-            if (this.checkBox1.Checked == true) { configByte[channelindex][count] = 1; }
-            else { configByte[channelindex][count] = 0; }
+            if (this.checkBox1.Checked == true) 
+            { 
+                configSend[channelindex][count] = 1;
+                configByte[channelindex][count] = 1;
+            }
+            else 
+            { 
+                configSend[channelindex][count] = 0;
+                configByte[channelindex][count] = 0;
+            }
             count = count + 1;
             //}
             //catch
@@ -338,9 +369,11 @@ namespace UpperComputer
             //{
             string str = null;
             //伪码变动标识
+            configSend[channelindex][count] = Convert.ToByte("cc", 16);
             configByte[channelindex][count] = Convert.ToByte("cc", 16);
             count = count + 1;
-            //预置码组8字节  
+            //预置码组8字节
+            originbyte_calculate(Convert.ToString(Convert.ToUInt16(this.textBox7.Text, 16)), 2);
             str = Convert.ToString(Convert.ToUInt16(this.textBox7.Text, 16), 2);
             byte_calculate(str, 2);
             str = Convert.ToString(Convert.ToUInt16(this.textBox8.Text, 16), 2);
@@ -351,7 +384,7 @@ namespace UpperComputer
             byte_calculate(str, 2);
             //码速率4字节
             str = Convert.ToString((long)Math.Round(Convert.ToDouble(this.comboBox2.Text) * power / p1), 2);
-            
+
             byte_calculate(str, 4);
             //预置码多普勒4字节，与载波伪码相干开关状态有关
             UInt32 middle_par = 0;
@@ -359,10 +392,10 @@ namespace UpperComputer
             string str1 = null;
             for (int i = 5; i < 9; i++)
             {
-                str1 = str1 + method.Fill_Zero(Convert.ToString(configByte[channelindex][i], 2), 8);//计算上行频率
+                str1 = str1 + method.Fill_Zero(Convert.ToString(configSend[channelindex][i], 2), 8);//计算上行频率
             }
             byte_calculate(4);
-            /*if (configByte[channelindex][infuence] == 0)
+            /*if (configSend[channelindex][infuence] == 0)
             {
                 byte_calculate(4);
             }
@@ -381,7 +414,7 @@ namespace UpperComputer
             }*/
             //码多普勒变化率4字节  与多普勒范围以及多普勒变化率相关
             byte_calculate(4);
-            /*if (configByte[channelindex][infuence] == 0)
+            /*if (configSend[channelindex][infuence] == 0)
             {
                 byte_calculate(4);
             }
@@ -407,7 +440,7 @@ namespace UpperComputer
             }*/
             //码多普勒范围4字节 
             /*
-            if (configByte[channelindex][infuence] == 0)
+            if (configSend[channelindex][infuence] == 0)
             {
                 byte_calculate(4);
             }
@@ -419,7 +452,7 @@ namespace UpperComputer
             }*/
             byte_calculate(4);
             //码多普勒补偿因子4字节  
-            if (configByte[channelindex][infuence] == 1)
+            if (configSend[channelindex][infuence] == 1)
             {
                 middle_par = (UInt32)(Math.Round(Convert.ToDouble(this.comboBox2.Text) * m / Convert.ToUInt32(str1, 2) * Math.Pow(2, 16)));
             }
@@ -449,7 +482,7 @@ namespace UpperComputer
 
             string str = null;
             //信息层变动标识
-            configByte[channelindex][count] = Convert.ToByte("cc", 16);
+            configSend[channelindex][count] = Convert.ToByte("cc", 16);
             count = count + 1;
             //信息速率4字节
             double info_rate;
@@ -466,13 +499,13 @@ namespace UpperComputer
             //信息来源1字节,01：随即数据块（多项式生成）02：外部定义固定格式数据块（4096Byte）03：外部定义（实时输入）
             switch (this.comboBox3.Text)
             {
-                case "随机数据块": configByte[channelindex][count] = 1;
+                case "随机数据块": configSend[channelindex][count] = 1;
                     break;
-                case "外部数据块": configByte[channelindex][count] = 2;
+                case "外部数据块": configSend[channelindex][count] = 2;
                     break;
-                case "外部定义": configByte[channelindex][count] = 3;
+                case "外部定义": configSend[channelindex][count] = 3;
                     break;
-                default: configByte[channelindex][count] = 1;
+                default: configSend[channelindex][count] = 1;
                     break;
             }
             count = count + 1;
@@ -482,32 +515,32 @@ namespace UpperComputer
             str = Convert.ToString(Convert.ToUInt16(this.textBox17.Text, 16), 2);
             byte_calculate(str, 2);
             //信息空白位选择模式，0F：空闲填“0101”；F0：空闲填“0000”
-            configByte[channelindex][count] = Convert.ToByte(this.textBox18.Text, 16);
+            configSend[channelindex][count] = Convert.ToByte(this.textBox18.Text, 16);
             count = count + 1;
             //信息加扰开关,0：加扰;1：不加扰
-            if (this.radioButton1.Checked == true) { configByte[channelindex][count] = 0; }
-            else { configByte[channelindex][count] = 1; }
+            if (this.radioButton1.Checked == true) { configSend[channelindex][count] = 0; }
+            else { configSend[channelindex][count] = 1; }
             count = count + 1;
             //信息层补偿因子4字节
             string str1 = null;
             for (int i = 5; i < 9; i++)
             {
-                str1 = str1 + method.Fill_Zero(Convert.ToString(configByte[channelindex][i], 2), 8);//计算上行频率
+                str1 = str1 + method.Fill_Zero(Convert.ToString(configSend[channelindex][i], 2), 8);//计算上行频率
             }
             //str = Convert.ToString(((long)Math.Round(info_rate * power / Convert.ToUInt32(str1, 2))), 2);
             //byte_calculate( str, 4);
             byte_calculate(4);
             //干扰模式1字节
-            if (this.radioButton3.Checked == true) { configByte[channelindex][count] = 0; }
-            else { configByte[channelindex][count] = 1; }
+            if (this.radioButton3.Checked == true) { configSend[channelindex][count] = 0; }
+            else { configSend[channelindex][count] = 1; }
             count = count + 1;
             //码型
             switch (this.comboBox4.Text)
             {
-                case "NRZ-L": configByte[channelindex][count] = 01; break;
-                case "NRZ-M": configByte[channelindex][count] = 02; break;
-                case "NRZ-S": configByte[channelindex][count] = 04; break;
-                default: configByte[channelindex][count] = 01; break;
+                case "NRZ-L": configSend[channelindex][count] = 01; break;
+                case "NRZ-M": configSend[channelindex][count] = 02; break;
+                case "NRZ-S": configSend[channelindex][count] = 04; break;
+                default: configSend[channelindex][count] = 01; break;
             }
             count = count + 1;
             //预留
@@ -551,7 +584,7 @@ namespace UpperComputer
         public void parameter_down()  //21~87
         {
             this.control = MainForm.control;
-            this.configByte = MainForm.configByte;
+            this.configSend = MainForm.configSend;
             //通道标示
             count = 3;
             string str = null;
@@ -561,7 +594,7 @@ namespace UpperComputer
             { str = "11"; }
             str = str + (channelindex + 1).ToString();
             byte index = Convert.ToByte(method.Fill_Zero(str, 8).Substring(2, 6));
-            configByte[channelindex][count] = index;
+            configSend[channelindex][count] = index;
             count = count + 1;
             center_fre();
             pseudo_code();
@@ -580,8 +613,8 @@ namespace UpperComputer
             {
                 OnMyValueChanged(this, null);
             }
-            configByte[channelindex][GlobalVar.configNum - 3] = method.sum_verify(configByte[channelindex]);
-            configByte[channelindex] = method.FillHeadTail(configByte[channelindex], "12");
+            configSend[channelindex][GlobalVar.configNum - 3] = method.sum_verify(configSend[channelindex]);
+            configSend[channelindex] = method.FillHeadTail(configSend[channelindex], "12");
             method.SendHandle();
         }
         #endregion
@@ -641,7 +674,7 @@ namespace UpperComputer
             switch (model)
             {
                 case 2:
-                    double ratio =  Convert.ToUInt32(text(4, bs))*fs/power/2047;
+                    double ratio = Convert.ToUInt32(text(4, bs)) * fs / power / 2047;
                     this.textBox5.Text = Convert.ToString(Convert.ToDouble(this.textBox3.Text) / ratio);
                     break;
                 case 3:

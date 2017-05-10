@@ -304,9 +304,6 @@ namespace UpperComputer
             }
             return find;
         }
-
-        
-
         #region 下发信号返回校验
         public delegate bool CheckHandle(byte[] origin, string type);
         bool Foo(byte[] origin, string type)
